@@ -87,9 +87,6 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
     private Page[][] PAGES = {
             {
                     new Page("Hitler", "National Socialist Party", "0"),
-            },
-            {
-                    new Page("Churchill", "Conservative Party", "2"),
             },};
 //
 //            {
@@ -127,6 +124,10 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
         String par = page.Partei;
 //        CardFragment fragment = CardFragment.create(title, text, page.iconRes);
         Fragment fragment;
+        if (page.value == 0) {
+            fragment = FaceFragment.newInstance(sen, par, getBackgroundInt(par), 0);
+            return fragment;
+        }
         if (col == 0) {
             fragment = FaceFragment.newInstance(sen, par, getBackgroundInt(par), row + 1);
         } else {

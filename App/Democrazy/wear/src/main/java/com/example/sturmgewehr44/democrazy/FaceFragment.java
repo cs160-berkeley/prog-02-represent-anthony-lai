@@ -108,6 +108,9 @@ public class FaceFragment extends Fragment {
             portrait.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    if (mParam4 == 0) {
+                        return;
+                    }
                     Intent sendIntent = new Intent(getActivity().getBaseContext(), WatchToPhoneService.class);
                     sendIntent.putExtra("VALUE", Integer.toString(mParam4));
                     sendIntent.putExtra("sen", mParam1);
