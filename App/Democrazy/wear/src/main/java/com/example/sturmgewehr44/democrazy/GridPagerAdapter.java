@@ -86,7 +86,7 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
 
     private Page[][] PAGES = {
             {
-                    new Page("Hitler", "National Socialist Party", "1"),
+                    new Page("Hitler", "National Socialist Party", "0"),
             },
             {
                     new Page("Churchill", "Conservative Party", "2"),

@@ -12,6 +12,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 
@@ -80,16 +81,27 @@ public class FaceFragment extends Fragment {
             ((TextView) view.findViewById(R.id.par)).setText(mParam2);
             ImageButton portrait = (ImageButton) view.findViewById(R.id.Face);
             portrait.setBackground((Drawable) new ColorDrawable(mParam3));
+            if (mParam4 > 2) {
+                ((TextView) view.findViewById(R.id.textView)).setText("Representative");
+            }
             switch (mParam4) {
+                case 0: portrait.setBackgroundColor(0xFF3c3b6e);
+                        ((LinearLayout) view.findViewById(R.id.container)).setVisibility(View.GONE);
+                        break;
                 case 1: portrait.setImageResource(R.drawable.fdr);
+                        ((TextView) view.findViewById(R.id.title)).setVisibility(View.GONE);
                         break;
                 case 2: portrait.setImageResource(R.drawable.stalin);
+                        ((TextView) view.findViewById(R.id.title)).setVisibility(View.GONE);
                         break;
                 case 3: portrait.setImageResource(R.drawable.wendell);
+                        ((TextView) view.findViewById(R.id.title)).setVisibility(View.GONE);
                         break;
                 case 4: portrait.setImageResource(R.drawable.hitler);
+                        ((TextView) view.findViewById(R.id.title)).setVisibility(View.GONE);
                         break;
                 case 5: portrait.setImageResource(R.drawable.churchill);
+                        ((TextView) view.findViewById(R.id.title)).setVisibility(View.GONE);
                         break;
             }
 
