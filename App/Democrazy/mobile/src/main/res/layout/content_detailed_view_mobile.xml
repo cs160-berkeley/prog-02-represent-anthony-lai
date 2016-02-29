@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.sturmgewehr44.democrazy.DetailedViewMobile"
+    tools:showIn="@layout/activity_detailed_view_mobile"
+    android:background="#3c3b6e"
+    android:contextClickable="false">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Large Text"
+            android:id="@+id/title"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Medium Text"
+            android:id="@+id/role"
+            android:textColor="#FFFFFF"
+            android:gravity="center_horizontal"
+            android:textSize="13dp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="10dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal">
+
+                <ImageView
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:id="@+id/image"
+                    android:padding="4dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/party"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/term"
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp" />
+
+            </LinearLayout>
+
+            <Space
+                android:layout_width="8dp"
+                android:layout_height="fill_parent" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text="Medium Text"
+                    android:id="@+id/slogan"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_horizontal" />
+
+                <ScrollView
+                    android:layout_width="wrap_content"
+                    android:layout_height="155dp"
+                    android:id="@+id/scrollView2" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Medium Text"
+                        android:id="@+id/bio"
+                        android:textColor="#FFFFFF"
+                        android:textSize="10dp"
+                        android:nestedScrollingEnabled="true"
+                        android:gravity="center_vertical" />
+                </ScrollView>
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Committees"
+            android:id="@+id/textView4"
+            android:textColor="#FFFFFF" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:id="@+id/scrollView3">
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small TextSmall TextSmall TextSmall TextSmaextSeinemefdasfdsafdsaSmall TextSmall TextSmall TextSmall TextSmaextSeinemefdasfdsafdsaSmall TextSmall TextSmall TextSmall TextSmaextSeinemefdasfdsafdsaSmall TextSmall TextSmall TextSmall TextSmaextSeinemefdasfdsafdsa"
+                android:id="@+id/committees"
+                android:textColor="#FFFFFF"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:nestedScrollingEnabled="true"
+                android:textSize="10dp" />
+        </ScrollView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Bills"
+            android:id="@+id/textView5"
+            android:textColor="#FFFFFF" />
+
+        <ScrollView
+            android:layout_width="fill_parent"
+            android:layout_height="75dp"
+            android:id="@+id/scrollView4" >
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="100dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/bills"
+                android:textColor="#FFFFFF"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:nestedScrollingEnabled="true"
+                android:textSize="10dp" />
+        </ScrollView>
+
+    </LinearLayout>
+</RelativeLayout>

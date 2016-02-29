@@ -1,0 +1,51 @@
+package com.example.sturmgewehr44.democrazy;
+
+import android.content.Intent;
+import android.util.Log;
+import com.google.android.gms.wearable.MessageEvent;
+import com.google.android.gms.wearable.WearableListenerService;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+
+/**
+ * Created by Sturmgewehr44 on 2/26/16.
+ */
+
+
+public class WatchListenerService extends WearableListenerService {
+    // In PhoneToWatchService, we passed in a path, either "/FRED" or "/LEXY"
+    // These paths serve to differentiate different phone-to-watch messages
+    private static final String START = "/START";
+    private static final String FALL = "/case";
+    private static HashMap<String, String> builds = new HashMap<String, String>();
+    private static int Size = -1;
+
+    @Override
+    public void onMessageReceived(MessageEvent messageEvent) {
+        Log.d("T", "in WatchListenerService, got: " + messageEvent.getPath());
+        //use the 'path' field in sendmessage to differentiate use cases
+        //(here, fred vs lexy)
+        if(messageEvent.getPath().equalsIgnoreCase( START )) {
+            System.out.println(builds.size());
+//            while (Size * 2 > builds.size()) {
+//                System.out.print("Size");
+//                System.out.println(builds.size());
+//            }
+            Intent intent = new Intent(this, MainViewWatch.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            for (String key: builds.keySet()) {
+                intent.putExtra(key, builds.get(key));
+            }
+            intent.putExtra("cases", Integer.toString(builds.size() / 2 - 2));
+            startActivity(intent);
+        } else if (messageEvent.getPath().equalsIgnoreCase( FALL )) {
+            Size = Integer.parseInt(new String(messageEvent.getData(), StandardCharsets.UTF_8));
+        } else {
+            String key = messageEvent.getPath();
+            String value = new String(messageEvent.getData(), StandardCharsets.UTF_8);
+            builds.put(key, value);
+//            super.onMessageReceived( messageEvent );
+        }
+
+    }
+}

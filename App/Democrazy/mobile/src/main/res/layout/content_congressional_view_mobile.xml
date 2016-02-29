@@ -1,0 +1,558 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.example.sturmgewehr44.democrazy.CongressionalViewMobile"
+    tools:showIn="@layout/activity_congressional_view_mobile"
+    android:background="#3c3b6e">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:text="Representatives for 00000"
+            android:id="@+id/header"
+            android:textColor="#FFFFFF" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Senators"
+            android:id="@+id/unused"
+            android:textColor="#FFFFFF" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal">
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="left"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="god king"
+                    android:id="@+id/sen1"
+                    android:textColor="#FFFFFF" />
+
+                <ImageButton
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/sen1Image"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:padding="6dp"
+                    android:src="@drawable/fdr"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Democratic Party"
+                    android:id="@+id/par1"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="roosevelt@senate.gov"
+                    android:id="@+id/ema1"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="newDeal.com"
+                    android:id="@+id/web1"
+                    android:textColor="#FFFFFF"
+                    android:gravity="center_horizontal" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:background="#FFFFFF">
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:id="@+id/imageView" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="\@NewDEALZ"
+                            android:id="@+id/twe1" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="\@neversurrender tanks 4 cash brah?"
+                        android:id="@+id/twi1" />
+
+                </LinearLayout>
+            </LinearLayout>
+
+            <Space
+                android:layout_width="28dp"
+                android:layout_height="fill_parent" />
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="right"
+                android:gravity="center_horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Joseph Stalin"
+                    android:id="@+id/sen2"
+                    android:textColor="#FFFFFF" />
+
+                <ImageButton
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:id="@+id/sen2image"
+                    android:src="@drawable/stalin"
+                    android:layout_gravity="center"
+                    android:adjustViewBounds="true"
+                    android:padding="6dp"
+                    android:scaleType="fitCenter" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="Communist Party"
+                    android:id="@+id/par2"
+                    android:textColor="#FFFFFF"
+                    android:layout_gravity="center" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="gulag@senate.com"
+                    android:id="@+id/ema2"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:text="cccp.com"
+                    android:id="@+id/web2"
+                    android:textColor="#FFFFFF" />
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="75dp"
+                    android:background="#FFFFFF" >
+
+                    <LinearLayout
+                        android:orientation="horizontal"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" >
+
+                        <ImageView
+                            android:layout_width="8dp"
+                            android:layout_height="8dp"
+                            android:id="@+id/imageView2" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="\@not1stepback"
+                            android:id="@+id/twe2" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceSmall"
+                        android:text="\@Poland sorry"
+                        android:id="@+id/twi2" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:text="Representatives"
+            android:id="@+id/unused2"
+            android:textColor="#FFFFFF" />
+
+        <ScrollView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView" >
+
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical">
+
+                    <ImageButton
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:id="@+id/sen3image"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/wendell"
+                        android:padding="4dp" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="fill_parent" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="god king"
+                            android:id="@+id/sen3"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Democratic Party"
+                            android:id="@+id/par3"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="roosevelt@senate.gov"
+                            android:id="@+id/ema3"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="newDeal.com"
+                            android:id="@+id/web3"
+                            android:textColor="#FFFFFF"
+                            android:gravity="center_horizontal"
+                            android:textSize="11dp" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="fill_parent" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:background="#FFFFFF" >
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:id="@+id/imageView3" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="\@NewDEALZ"
+                                android:id="@+id/twe3"
+                                android:textSize="11dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="\@neversurrender tanks 4 cash brah?"
+                            android:id="@+id/twi3"
+                            android:textSize="10dp"
+                            android:padding="3dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="10dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:id="@+id/case2">
+
+                    <ImageButton
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:id="@+id/sen4image"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/hitler"
+                        android:padding="4dp" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="fill_parent" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="god king"
+                            android:id="@+id/sen4"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Democratic Party"
+                            android:id="@+id/par4"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="roosevelt@senate.gov"
+                            android:id="@+id/ema4"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="newDeal.com"
+                            android:id="@+id/web4"
+                            android:textColor="#FFFFFF"
+                            android:gravity="center_horizontal"
+                            android:textSize="11dp" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="fill_parent" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:background="#FFFFFF" >
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:id="@+id/imageView4" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="\@NewDEALZ"
+                                android:id="@+id/twe4"
+                                android:textSize="11dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="\@neversurrender tanks 4 cash brah?"
+                            android:id="@+id/twi4"
+                            android:textSize="10dp"
+                            android:padding="3dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <Space
+                    android:layout_width="fill_parent"
+                    android:layout_height="10dp" />
+
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical"
+                    android:id="@+id/case3">
+
+                    <ImageButton
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
+                        android:id="@+id/sen5image"
+                        android:layout_gravity="center"
+                        android:adjustViewBounds="true"
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/churchill"
+                        android:padding="4dp" />
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="fill_parent" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="120dp"
+                        android:layout_height="match_parent" >
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="god king"
+                            android:id="@+id/sen5"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="Democratic Party"
+                            android:id="@+id/par5"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="roosevelt@senate.gov"
+                            android:id="@+id/ema5"
+                            android:textColor="#FFFFFF"
+                            android:textSize="11dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="20dp"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="newDeal.com"
+                            android:id="@+id/web5"
+                            android:textColor="#FFFFFF"
+                            android:gravity="center_horizontal"
+                            android:textSize="11dp" />
+                    </LinearLayout>
+
+                    <Space
+                        android:layout_width="10dp"
+                        android:layout_height="fill_parent" />
+
+                    <LinearLayout
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="75dp"
+                        android:background="#FFFFFF" >
+
+                        <LinearLayout
+                            android:orientation="horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" >
+
+                            <ImageView
+                                android:layout_width="8dp"
+                                android:layout_height="8dp"
+                                android:id="@+id/imageView5" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:text="\@NewDEALZ"
+                                android:id="@+id/twe5"
+                                android:textSize="11dp" />
+                        </LinearLayout>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:text="\@neversurrender tanks 4 cash brah?"
+                            android:id="@+id/twi5"
+                            android:textSize="10dp"
+                            android:padding="3dp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>

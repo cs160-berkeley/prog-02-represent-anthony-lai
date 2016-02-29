@@ -1,0 +1,67 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.sturmgewehr44.democrazy.VoteFragment"
+    android:background="#3c3b6e">
+
+    <!-- TODO: Update blank fragment layout -->
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2012 Presidential Vote"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="15dp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2012 Presidential Vote"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="12dp"
+            android:id="@+id/state" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2012 Presidential Vote"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="12dp"
+            android:id="@+id/county" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2012 Presidential Vote"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="12dp"
+            android:id="@+id/obama" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="2012 Presidential Vote"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textIsSelectable="false"
+            android:textSize="12dp"
+            android:id="@+id/Romney" />
+    </LinearLayout>
+
+</FrameLayout>
