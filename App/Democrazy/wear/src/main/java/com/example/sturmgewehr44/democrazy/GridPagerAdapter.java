@@ -51,6 +51,7 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
         String senator = "sendd";
         String Partei = "partie";
         int value;
+        int zip;
 
         public Page(int titleRes, int textRes, boolean expansion) {
             this(titleRes, textRes, 0);
@@ -76,17 +77,18 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
             this.cardGravity = gravity;
         }
 
-        public Page(String sen, String par, String val) {
+        public Page(String sen, String par, String val, String zip) {
             this(0, 0, 0);
             this.senator = sen;
             this.Partei = par;
             this.value = Integer.parseInt(val);
+            this.zip = Integer.parseInt(zip);
         }
     }
 
     private Page[][] PAGES = {
             {
-                    new Page("Hitler", "National Socialist Party", "0"),
+                    new Page("Hitler", "National Socialist Party", "0", "11111"),
             },};
 //
 //            {
@@ -105,10 +107,11 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
 //    };
 
     public void overridePages(int cases, ArrayList<String> info) {
+        String zipcode = info.get(info.size()-1);
         Page[][] Present = new Page[cases][2];
         for (int i = 0; i < cases; i++) {
-            Present[i][0] = new Page(info.get(i * 3), info.get(i * 3 + 1), info.get(i * 3 + 2));
-            Present[i][1] = new Page(info.get(i * 3), info.get(i * 3 + 1), info.get(i * 3 + 2));
+            Present[i][0] = new Page(info.get(i * 3), info.get(i * 3 + 1), info.get(i * 3 + 2), zipcode);
+            Present[i][1] = new Page(info.get(i * 3), info.get(i * 3 + 1), info.get(i * 3 + 2), zipcode);
         }
         PAGES = Present;
     }
@@ -131,7 +134,11 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
         if (col == 0) {
             fragment = FaceFragment.newInstance(sen, par, getBackgroundInt(par), row + 1);
         } else {
-            fragment = VoteFragment.newInstance("CA", "Barbarossa County", "Obama: 101% of votes", "Romney: -1% of votes");
+            if (page.zip % 2 == 0) {
+                fragment = VoteFragment.newInstance("CA", "Barbarossa County", "Obama: 101% of votes", "Romney: -1% of votes");
+            } else {
+                fragment = VoteFragment.newInstance("NV", "Barbarossa County", "Obama: 101% of votes", "Romney: -1% of votes");
+            }
         }
         // Advanced settings
 //        fragment.setCardGravity(page.cardGravity);

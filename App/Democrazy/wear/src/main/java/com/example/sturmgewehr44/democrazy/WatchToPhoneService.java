@@ -69,6 +69,7 @@ public class WatchToPhoneService extends Service {
                 sendMessage("VALUE", value);
                 sendMessage("sen" + value, extras.getString("sen"));
                 sendMessage("par" + value, extras.getString("par"));
+                SystemClock.sleep(500);
                 sendMessage("/START", "START");
                 System.out.println("back to u");
             }

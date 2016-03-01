@@ -46,27 +46,20 @@ public class PhoneToWatchService extends Service {
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        // Which cat do we want to feed? Grab this info from INTENT
-        // which was passed over when we called startService
         final Bundle extras = intent.getExtras();
-//        final String type = extras.getString("TYPE");
-//        final String location = extras.getString("LOCATION");
         final String fall = extras.getString("cases");
         final int num = Integer.parseInt(fall);
         // Send the message with the cat name
         new Thread(new Runnable() {
             @Override
             public void run() {
-                //first, connect to the apiclient
                 mApiClient.connect();
-                //now that you're connected, send a massage with the cat name
-//                sendMessage("/" + catName, catName);
                 sendMessage("/case", fall);
+                sendMessage("ZIPCODE", extras.getString("ZIPCODE"));
                 for (int indice = 0;  indice < num + 2; indice++) {
                     sendMessage("sen" + Integer.toString(indice + 1), extras.getString("sen" + Integer.toString(indice + 1)));
                     sendMessage("par" + Integer.toString(indice + 1), extras.getString("par" + Integer.toString(indice + 1)));
                 }
-                System.out.println("gpo");
                 SystemClock.sleep(500);
                 sendMessage("/START", "START");
             }

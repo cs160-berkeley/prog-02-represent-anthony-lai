@@ -36,7 +36,7 @@ public class WatchListenerService extends WearableListenerService {
             for (String key: builds.keySet()) {
                 intent.putExtra(key, builds.get(key));
             }
-            intent.putExtra("cases", Integer.toString(builds.size() / 2 - 2));
+            intent.putExtra("cases", Integer.toString((builds.size() - 1) / 2 - 2));
             startActivity(intent);
         } else if (messageEvent.getPath().equalsIgnoreCase( FALL )) {
             Size = Integer.parseInt(new String(messageEvent.getData(), StandardCharsets.UTF_8));
@@ -44,7 +44,6 @@ public class WatchListenerService extends WearableListenerService {
             String key = messageEvent.getPath();
             String value = new String(messageEvent.getData(), StandardCharsets.UTF_8);
             builds.put(key, value);
-//            super.onMessageReceived( messageEvent );
         }
 
     }

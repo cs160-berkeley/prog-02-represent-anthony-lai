@@ -15,12 +15,18 @@ import android.view.WindowInsets;
 import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
+import android.hardware.SensorManager;
+import android.hardware.Sensor;
+import java.util.List;
 
 
 public class MainViewWatch extends AppCompatActivity {
 
     private TextView mTextView;
     private Context ctx;
+    private SensorManager mSensorManager;
+    private Sensor mAccelerometer;
+    private ShakeReceptor mShakeReceptor;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +74,25 @@ public class MainViewWatch extends AppCompatActivity {
                         data.add(extras.getString("par" + Integer.toString(i + 1)));
                         data.add(Integer.toString(i + 1));
                     }
+                    data.add(extras.getString("ZIPCODE"));
                     gpa.overridePages(cases + 2, data);
                 }
                 pager.setAdapter(gpa);
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                FaceFragment fragment = new FaceFragment();
-//                fragmentTransaction.add(R.id.fragz, fragment);
-//                fragmentTransaction.commit();
+                mSensorManager = (SensorManager) getSystemService(ctx.SENSOR_SERVICE);
+                List<Sensor> mysensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
+                for (Sensor poo : mysensors) {
+                    System.out.println(poo);
+                }
+                mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+                System.out.println(mAccelerometer);
+                mShakeReceptor = new ShakeReceptor();
+                System.out.println(mShakeReceptor);
+                mShakeReceptor.setOnShakeListener(new ShakeReceptor.OnShakeListener() {
+                    @Override
+                    public void onShake(int count) {
+                        System.out.println(count);
+                    }
+                });
             }
         });
 
