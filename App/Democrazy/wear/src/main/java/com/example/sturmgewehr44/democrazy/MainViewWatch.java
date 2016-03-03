@@ -1,9 +1,11 @@
 package com.example.sturmgewehr44.democrazy;
 
 import android.app.Activity;
+import java.util.Random;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
+import android.hardware.SensorEvent;
 import android.os.Bundle;
 import android.support.wearable.view.WatchViewStub;
 import android.widget.TextView;
@@ -18,15 +20,18 @@ import java.util.ArrayList;
 import android.hardware.SensorManager;
 import android.hardware.Sensor;
 import java.util.List;
+import android.hardware.SensorEventListener;
 
 
-public class MainViewWatch extends AppCompatActivity {
+public class MainViewWatch extends AppCompatActivity implements SensorEventListener {
 
     private TextView mTextView;
     private Context ctx;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
-    private ShakeReceptor mShakeReceptor;
+    private float current = 0.0F;
+    private String zipcode;
+    private boolean secondpipe = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,9 +42,9 @@ public class MainViewWatch extends AppCompatActivity {
         stub.setOnLayoutInflatedListener(new WatchViewStub.OnLayoutInflatedListener() {
             @Override
             public void onLayoutInflated(WatchViewStub stub) {
-                mTextView = (TextView) stub.findViewById(R.id.text);
-                mTextView.setText("dogg");
-                System.out.println("u suck");
+//                mTextView = (TextView) stub.findViewById(R.id.text);
+//                mTextView.setText("dogg");
+//                System.out.println("u suck");
                 Intent intent = getIntent();
                 Bundle extras = intent.getExtras();
                 int cases = 0;
@@ -49,20 +54,8 @@ public class MainViewWatch extends AppCompatActivity {
                     System.out.println("first");
                 }
                 final Resources res = getResources();
+
                 final GridViewPager pager = (GridViewPager) findViewById(R.id.pager);
-//        pager.setOnApplyWindowInsetsListener(new OnApplyWindowInsetsListener() {
-//            @Override
-//            public WindowInsets onApplyWindowInsets(View v, WindowInsets insets) {
-//                // Adjust page margins:
-//                //   A little extra horizontal spacing between pages looks a bit
-//                //   less crowded on a round display.
-//                final boolean round = insets.isRound();
-//                int rowMargin = res.getDimensionPixelOffset(2);
-//                int colMargin = res.getDimensionPixelOffset(2);
-//                pager.setPageMargins(rowMargin, colMargin);
-//                return insets;
-//            }
-//        });
                 FragmentManager fragmentManager = getFragmentManager();
                 GridPagerAdapter gpa = new GridPagerAdapter(ctx, fragmentManager);
                 if (cases == 0) {
@@ -74,27 +67,66 @@ public class MainViewWatch extends AppCompatActivity {
                         data.add(extras.getString("par" + Integer.toString(i + 1)));
                         data.add(Integer.toString(i + 1));
                     }
-                    data.add(extras.getString("ZIPCODE"));
+                    zipcode = extras.getString("ZIPCODE");
+                    data.add(zipcode);
                     gpa.overridePages(cases + 2, data);
                 }
                 pager.setAdapter(gpa);
-                mSensorManager = (SensorManager) getSystemService(ctx.SENSOR_SERVICE);
-                List<Sensor> mysensors = mSensorManager.getSensorList(Sensor.TYPE_ALL);
-                for (Sensor poo : mysensors) {
-                    System.out.println(poo);
-                }
+
+                mSensorManager = (SensorManager) getSystemService(Context.SENSOR_SERVICE);
                 mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
-                System.out.println(mAccelerometer);
-                mShakeReceptor = new ShakeReceptor();
-                System.out.println(mShakeReceptor);
-                mShakeReceptor.setOnShakeListener(new ShakeReceptor.OnShakeListener() {
-                    @Override
-                    public void onShake(int count) {
-                        System.out.println(count);
-                    }
-                });
             }
         });
+    }
+
+    public void onAccuracyChanged(Sensor sensor, int accuracy) {
 
     }
+
+    public void onSensorChanged(SensorEvent event) {
+        if (mAccelerometer != null) {
+
+            float x = event.values[0];
+            float y = event.values[1];
+            float z = event.values[2];
+            if (x + y + z != current && x + y + z > 1000) {
+                System.out.println(x);
+                System.out.println(y);
+                System.out.println(z);
+                System.out.println("doge");
+                if (zipcode != null) {
+                    Intent shake = new Intent(getBaseContext(), WatchToPhoneService.class);
+                    shake.putExtra("/CASE", "SHAKE");
+                    int zip = Integer.parseInt(zipcode);
+                    Random rand = new Random();
+                    int value = rand.nextInt(99999);
+                    if ((zip % 2) == (value % 2)) {
+                        zip = value + 1;
+                    } else {
+                        zip = value;
+                    }
+                    zipcode = Integer.toString(zip);
+                    shake.putExtra("ZIPCODE", zipcode);
+                    startService(shake);
+                }
+                current = x + y + z;
+            }
+        }
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        mSensorManager =  (SensorManager) getSystemService(Context.SENSOR_SERVICE);
+        mAccelerometer = mSensorManager.getDefaultSensor(Sensor.TYPE_ACCELEROMETER);
+        mSensorManager.registerListener(this, mAccelerometer, SensorManager.SENSOR_DELAY_NORMAL);
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        mSensorManager.unregisterListener(this);
+    }
+
 }

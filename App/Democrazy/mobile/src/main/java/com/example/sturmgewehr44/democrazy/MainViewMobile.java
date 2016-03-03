@@ -118,26 +118,40 @@ public class MainViewMobile extends AppCompatActivity {
 
 
     public ArrayList<String> findData(String zip) {
-        //zipcode, representatives, info on senators
         ArrayList<String> info = new ArrayList<String>();
         info.add(zip);
         info.add("3");
         info.add("California");
 
-        info.add("Franklin D. Roosevelt");
-        info.add("Democratic Party");
-        info.add("roosevelt@senate.gov");
-        info.add("newDeal.com");
-        info.add("@NewDEALZ");
-        info.add("@neversurrender tanks 4 cash brah?");
+        if (Integer.parseInt(zip) % 2 == 0) {
+            info.add("Franklin D. Roosevelt");
+            info.add("Democratic Party");
+            info.add("roosevelt@senate.gov");
+            info.add("newDeal.com");
+            info.add("@NewDEALZ");
+            info.add("@neversurrender tanks 4 cash brah?");
 
-        info.add("Joseph Stalin");
-        info.add("Communist Party");
-        info.add("gulag@senate.gov");
-        info.add("cccp.com");
-        info.add("@not1stepback");
-        info.add("@Poland sorry");
+            info.add("Joseph Stalin");
+            info.add("Communist Party");
+            info.add("gulag@senate.gov");
+            info.add("cccp.com");
+            info.add("@not1stepback");
+            info.add("@Poland sorry");
+        } else {
+            info.add("Joseph Stalin");
+            info.add("Communist Party");
+            info.add("gulag@senate.gov");
+            info.add("cccp.com");
+            info.add("@not1stepback");
+            info.add("@Poland sorry");
 
+            info.add("Franklin D. Roosevelt");
+            info.add("Democratic Party");
+            info.add("roosevelt@senate.gov");
+            info.add("newDeal.com");
+            info.add("@NewDEALZ");
+            info.add("@neversurrender tanks 4 cash brah?");
+        }
         info.add("Wendell Willkie");
         info.add("Republican Party");
         info.add("wellWill@senate.gov");

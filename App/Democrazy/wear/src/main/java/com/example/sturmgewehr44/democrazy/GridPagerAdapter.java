@@ -31,14 +31,6 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
         mContext = ctx;
     }
 
-    static final int[] BG_IMAGES = new int[] {
-            R.drawable.hitler,
-            R.drawable.stalin,
-            R.drawable.churchill,
-            R.drawable.wendell,
-            R.drawable.fdr
-    };
-
     /** A simple container for static data in each page */
     private static class Page {
         int titleRes;

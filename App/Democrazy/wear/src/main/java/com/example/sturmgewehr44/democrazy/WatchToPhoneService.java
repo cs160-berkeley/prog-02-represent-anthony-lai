@@ -65,46 +65,30 @@ public class WatchToPhoneService extends Service {
                 mWatchApiClient.connect();
                 //now that you're connected, send a massage with the cat name
 //                sendMessage("/" + catName, catName);
-                String value = extras.getString("VALUE");
-                sendMessage("VALUE", value);
-                sendMessage("sen" + value, extras.getString("sen"));
-                sendMessage("par" + value, extras.getString("par"));
-                SystemClock.sleep(500);
-                sendMessage("/START", "START");
-                System.out.println("back to u");
+                System.out.println("sending");
+                System.out.println(extras.getString("/CASE"));
+                if (extras.getString("/CASE").equals("FACE")) {
+                    sendMessage("/CASE", "FACE");
+                    SystemClock.sleep(500);
+                    String value = extras.getString("VALUE");
+                    sendMessage("VALUE", value);
+                    sendMessage("sen" + value, extras.getString("sen"));
+                    sendMessage("par" + value, extras.getString("par"));
+                    SystemClock.sleep(500);
+                    sendMessage("/START", "START");
+                } else {
+                    sendMessage("/CASE", "SHAKE");
+                    SystemClock.sleep(500);
+                    sendMessage("ZIPCODE", extras.getString("ZIPCODE"));
+                    SystemClock.sleep(500);
+                    sendMessage("/START", "START");
+                }
             }
         }).start();
 
         return START_STICKY;
     }
 
-//    @Override //alternate method to connecting: no longer create this in a new thread, but as a callback
-//    public void onConnected(Bundle bundle) {
-//        Log.d("T", "in onconnected");
-//        Wearable.NodeApi.getConnectedNodes(mWatchApiClient)
-//                .setResultCallback(new ResultCallback<NodeApi.GetConnectedNodesResult>() {
-//                    @Override
-//                    public void onResult(NodeApi.GetConnectedNodesResult getConnectedNodesResult) {
-//                        nodes = getConnectedNodesResult.getNodes();
-//                        Log.d("T", "found nodes");
-//                        //when we find a connected node, we populate the list declared above
-//                        //finally, we can send a message
-//                        final Bundle extras = intent.getExtras();
-//                        sendMessage("VALUE", "Good job!");
-//                        Log.d("T", "sent");
-//                    }
-//                });
-//    }
-
-//    @Override //we need this to implement GoogleApiClient.ConnectionsCallback
-//    public void onConnectionSuspended(int i) {}
-//
-//    private void sendMessage(final String path, final String text ) {
-//        for (Node node : nodes) {
-//            Wearable.MessageApi.sendMessage(
-//                    mWatchApiClient, node.getId(), path, text.getBytes());
-//        }
-//    }
 
     private void sendMessage(final String path, final String text) {
         //one way to send message: start a new thread and call .await()

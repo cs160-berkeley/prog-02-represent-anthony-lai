@@ -112,11 +112,11 @@ public class FaceFragment extends Fragment {
                         return;
                     }
                     Intent sendIntent = new Intent(getActivity().getBaseContext(), WatchToPhoneService.class);
+                    sendIntent.putExtra("/CASE", "FACE");
                     sendIntent.putExtra("VALUE", Integer.toString(mParam4));
                     sendIntent.putExtra("sen", mParam1);
                     sendIntent.putExtra("par", mParam2);
                     getActivity().startService(sendIntent);
-                    System.out.println(mParam4);
                 }
             });
 
