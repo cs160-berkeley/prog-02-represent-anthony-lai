@@ -3,17 +3,11 @@ package com.example.sturmgewehr44.democrazy;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.content.Context;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.ColorDrawable;
-import android.hardware.camera2.params.Face;
-import android.support.v4.content.ContextCompat;
 import android.support.wearable.view.CardFragment;
 import android.support.wearable.view.FragmentGridPagerAdapter;
-//import android.support.wearable.view.ImageReference;
 import android.view.Gravity;
 import android.graphics.drawable.Drawable;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import java.util.ArrayList;
 
 
@@ -24,7 +18,6 @@ import java.util.ArrayList;
 public class GridPagerAdapter extends FragmentGridPagerAdapter {
 
     private final Context mContext;
-//    private List mRows;
 
     public GridPagerAdapter(Context ctx, FragmentManager fm) {
         super(fm);
@@ -111,13 +104,10 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
     @Override
     public Fragment getFragment(int row, int col) {
         Page page = PAGES[row][col];
-//        String title = "litera" + Integer.toString(row); //page.titleRes != 0 ? mContext.getString(page.titleRes) : null;
-//        String text = "hitler" + Integer.toString(col); //page.textRes != 0 ? mContext.getString(page.textRes) : null;
         System.out.println(row);
         System.out.println(col);
         String sen = page.senator;
         String par = page.Partei;
-//        CardFragment fragment = CardFragment.create(title, text, page.iconRes);
         Fragment fragment;
         if (page.value == 0) {
             fragment = FaceFragment.newInstance(sen, par, getBackgroundInt(par), 0);
@@ -132,18 +122,9 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
                 fragment = VoteFragment.newInstance("NV", "Barbarossa County", "Obama: 101% of votes", "Romney: -1% of votes");
             }
         }
-        // Advanced settings
-//        fragment.setCardGravity(page.cardGravity);
-//        fragment.setExpansionEnabled(page.expansionEnabled);
-//        fragment.setExpansionDirection(page.expansionDirection);
-//        fragment.setExpansionFactor(page.expansionFactor);
         return fragment;
     }
 
-//    @Override
-//    public ImageReference getBackground(int row, int column) {
-//        return ImageReference.forDrawable(BG_IMAGES[row % BG_IMAGES.length]);
-//    }
     @Override
     public Drawable getBackgroundForPage(int row, int column) {
         return new ColorDrawable(0xFF3c3b6e);

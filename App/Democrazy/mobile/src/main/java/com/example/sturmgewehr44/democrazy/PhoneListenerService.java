@@ -1,11 +1,7 @@
 package com.example.sturmgewehr44.democrazy;
 
-import android.app.Service;
-import android.content.Context;
 import android.content.Intent;
-import android.os.IBinder;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
@@ -17,8 +13,6 @@ import java.nio.charset.StandardCharsets;
 
 public class PhoneListenerService extends WearableListenerService {
 
-    //   WearableListenerServices don't need an iBinder or an onStartCommand: they just need an onMessageReceieved.
-    private static final String TOAST = "/send_toast";
     private static final String START = "/START";
     private static final String CASE = "/CASE";
     private static boolean shake;
@@ -32,7 +26,6 @@ public class PhoneListenerService extends WearableListenerService {
             if (shake) {
                 System.out.println("shake");
                 Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
-                intent = new Intent(this, CongressionalViewMobile.class);
                 sendIntent.putExtra("TYPE", "ZIP");
                 String zipcode = builds.get("ZIPCODE");
                 ArrayList<String> info = findData(zipcode);
@@ -68,7 +61,6 @@ public class PhoneListenerService extends WearableListenerService {
                 toCongressionalViewIntent.putExtras(sendIntent.getExtras());
                 startActivity(toCongressionalViewIntent);
             } else {
-                System.out.println("face");
                 intent = new Intent(this, DetailedViewMobile.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 for (String key: builds.keySet()) {
@@ -79,7 +71,6 @@ public class PhoneListenerService extends WearableListenerService {
             }
 
         } else if (messageEvent.getPath().equalsIgnoreCase(CASE)) {
-            System.out.println("case");
             String value = new String(messageEvent.getData(), StandardCharsets.UTF_8);
             if (value.equals("FACE")) {
                 shake = false;

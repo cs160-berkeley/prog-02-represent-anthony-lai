@@ -13,8 +13,6 @@ import java.util.HashMap;
 
 
 public class WatchListenerService extends WearableListenerService {
-    // In PhoneToWatchService, we passed in a path, either "/FRED" or "/LEXY"
-    // These paths serve to differentiate different phone-to-watch messages
     private static final String START = "/START";
     private static final String FALL = "/case";
     private static HashMap<String, String> builds = new HashMap<String, String>();
@@ -23,14 +21,8 @@ public class WatchListenerService extends WearableListenerService {
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
         Log.d("T", "in WatchListenerService, got: " + messageEvent.getPath());
-        //use the 'path' field in sendmessage to differentiate use cases
-        //(here, fred vs lexy)
         if(messageEvent.getPath().equalsIgnoreCase( START )) {
             System.out.println(builds.size());
-//            while (Size * 2 > builds.size()) {
-//                System.out.print("Size");
-//                System.out.println(builds.size());
-//            }
             Intent intent = new Intent(this, MainViewWatch.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             for (String key: builds.keySet()) {
