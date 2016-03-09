@@ -65,7 +65,7 @@ public class MainViewMobile extends AppCompatActivity {
                     sendIntent.putExtra("twe" + Integer.toString(i + 3), info.get((i + 2) * 6 + 7));
                     sendIntent.putExtra("twi" + Integer.toString(i + 3), info.get((i + 2) * 6 + 8));
                 }
-                startService(sendIntent);
+//                startService(sendIntent);
                 Intent toCongressionalViewIntent = new Intent(getBaseContext(), CongressionalViewMobile.class);
                 toCongressionalViewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 toCongressionalViewIntent.putExtras(sendIntent.getExtras());
@@ -107,7 +107,7 @@ public class MainViewMobile extends AppCompatActivity {
                     sendIntent.putExtra("twe" + Integer.toString(i + 3), info.get((i + 2) * 6 + 7));
                     sendIntent.putExtra("twi" + Integer.toString(i + 3), info.get((i + 2) * 6 + 8));
                 }
-                startService(sendIntent);
+//                startService(sendIntent);
                 Intent toCongressionalViewIntent = new Intent(getBaseContext(), CongressionalViewMobile.class);
                 toCongressionalViewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 toCongressionalViewIntent.putExtras(sendIntent.getExtras());

@@ -32,6 +32,7 @@
             android:enabled="true"
             android:exported="true"></service>
         <uses-feature android:name="android.hardware.sensor.accelerometer" android:required = "true"/>
+        <uses-permission android:name="android.permission.INTERNET"/>
     </application>
 
 </manifest>
