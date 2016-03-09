@@ -54,7 +54,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="god king"
                     android:id="@+id/sen1"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp" />
 
                 <ImageButton
                     android:layout_width="150dp"
@@ -72,7 +73,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Democratic Party"
                     android:id="@+id/par1"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,7 +82,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="roosevelt@senate.gov"
                     android:id="@+id/ema1"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -89,11 +92,12 @@
                     android:text="newDeal.com"
                     android:id="@+id/web1"
                     android:textColor="#FFFFFF"
-                    android:gravity="center_horizontal" />
+                    android:gravity="center_horizontal"
+                    android:textSize="10dp" />
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="75dp"
                     android:background="#FFFFFF">
 
@@ -116,11 +120,13 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="\@neversurrender tanks 4 cash brah?"
-                        android:id="@+id/twi1" />
+                        android:id="@+id/twi1"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -142,7 +148,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="Joseph Stalin"
                     android:id="@+id/sen2"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="14dp" />
 
                 <ImageButton
                     android:layout_width="150dp"
@@ -161,7 +168,8 @@
                     android:text="Communist Party"
                     android:id="@+id/par2"
                     android:textColor="#FFFFFF"
-                    android:layout_gravity="center" />
+                    android:layout_gravity="center"
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -169,7 +177,8 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="gulag@senate.com"
                     android:id="@+id/ema2"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -177,11 +186,12 @@
                     android:textAppearance="?android:attr/textAppearanceSmall"
                     android:text="cccp.com"
                     android:id="@+id/web2"
-                    android:textColor="#FFFFFF" />
+                    android:textColor="#FFFFFF"
+                    android:textSize="10dp" />
 
                 <LinearLayout
                     android:orientation="vertical"
-                    android:layout_width="match_parent"
+                    android:layout_width="150dp"
                     android:layout_height="75dp"
                     android:background="#FFFFFF" >
 
@@ -204,11 +214,13 @@
                     </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:layout_width="fill_parent"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceSmall"
                         android:text="\@Poland sorry"
-                        android:id="@+id/twi2" />
+                        android:id="@+id/twi2"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -264,7 +276,8 @@
                             android:text="god king"
                             android:id="@+id/sen3"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="12dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -273,7 +286,8 @@
                             android:text="Democratic Party"
                             android:id="@+id/par3"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="12dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -282,7 +296,8 @@
                             android:text="roosevelt@senate.gov"
                             android:id="@+id/ema3"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="9dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -291,8 +306,8 @@
                             android:text="newDeal.com"
                             android:id="@+id/web3"
                             android:textColor="#FFFFFF"
-                            android:gravity="center_horizontal"
-                            android:textSize="11dp" />
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textSize="9dp" />
                     </LinearLayout>
 
                     <Space
@@ -373,7 +388,8 @@
                             android:text="god king"
                             android:id="@+id/sen4"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="10dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -382,7 +398,8 @@
                             android:text="Democratic Party"
                             android:id="@+id/par4"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="10dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -391,7 +408,8 @@
                             android:text="roosevelt@senate.gov"
                             android:id="@+id/ema4"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="10dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -400,8 +418,8 @@
                             android:text="newDeal.com"
                             android:id="@+id/web4"
                             android:textColor="#FFFFFF"
-                            android:gravity="center_horizontal"
-                            android:textSize="11dp" />
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textSize="10dp" />
                     </LinearLayout>
 
                     <Space
@@ -481,7 +499,8 @@
                             android:text="god king"
                             android:id="@+id/sen5"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="10dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -490,7 +509,8 @@
                             android:text="Democratic Party"
                             android:id="@+id/par5"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="10dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -499,7 +519,8 @@
                             android:text="roosevelt@senate.gov"
                             android:id="@+id/ema5"
                             android:textColor="#FFFFFF"
-                            android:textSize="11dp" />
+                            android:textSize="10dp"
+                            android:gravity="center_vertical" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -508,8 +529,8 @@
                             android:text="newDeal.com"
                             android:id="@+id/web5"
                             android:textColor="#FFFFFF"
-                            android:gravity="center_horizontal"
-                            android:textSize="11dp" />
+                            android:gravity="center_vertical|center_horizontal"
+                            android:textSize="10dp" />
                     </LinearLayout>
 
                     <Space

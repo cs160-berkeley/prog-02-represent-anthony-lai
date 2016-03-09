@@ -1,14 +1,14 @@
 # PROG 02: Represent!
 
-Briefly describe your app here.
+Ever wished you actually knew more about politics? Decided you're finally done with being a single issue voter? Ever wonder if your representatives actually vote on bills that you support? Then this is the app for you!
 
 ## Authors
 
-FirstName LastName ([your_email@berkeley.edu](mailto:your_email@berkeley.edu))
+Anthony Lai ([a.lai@berkeley.edu](mailto:a.lai@berkeley.edu))
 
 ## Demo Video
 
-See [your demo video title here] (https://link_to_your_video)
+See [your demo video title here] (https://www.youtube.com/watch?v=7OBaevSF1G0&feature=autoshare)
 
 ## Screenshots
 
@@ -16,5 +16,4 @@ See [your demo video title here] (https://link_to_your_video)
 
 ## Acknowledgments
 
-* Hat tip to anyone who's code was used
-* Any other support
+Shoutout to android docs for providing like 50% of the code that actually makes things runs behind the scenes.

@@ -64,11 +64,11 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 header.setText(title);
                 pullData(title);
             } else {
-                String title = extras.getString("state");
-                title += "'s ";
-                title += "239th ";
-                title += "district";
-                header.setText(title);
+//                String title = extras.getString("state");
+//                title += "'s ";
+//                title += "239th ";
+//                title += "district";
+//                header.setText(title);
                 cases = 1;
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
@@ -78,24 +78,24 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
 
 //            ((TextView) findViewById(R.id.sen1)).setText(extras.getString("sen1"));
 //            ((TextView) findViewById(R.id.par1)).setText(extras.getString("par1"));
-            ((TextView) findViewById(R.id.ema1)).setText(extras.getString("ema1"));
-            ((TextView) findViewById(R.id.web1)).setText(extras.getString("web1"));
+//            ((TextView) findViewById(R.id.ema1)).setText(extras.getString("ema1"));
+//            ((TextView) findViewById(R.id.web1)).setText(extras.getString("web1"));
             ((TextView) findViewById(R.id.twe1)).setText(extras.getString("twe1"));
             ((TextView) findViewById(R.id.twi1)).setText(extras.getString("twi1"));
 //            ((ImageButton) findViewById(R.id.sen1Image)).setBackground(getBackgroundColor(extras.getString("par1")));
 
 //            ((TextView) findViewById(R.id.sen2)).setText(extras.getString("sen2"));
 //            ((TextView) findViewById(R.id.par2)).setText(extras.getString("par2"));
-            ((TextView) findViewById(R.id.ema2)).setText(extras.getString("ema2"));
-            ((TextView) findViewById(R.id.web2)).setText(extras.getString("web2"));
+//            ((TextView) findViewById(R.id.ema2)).setText(extras.getString("ema2"));
+//            ((TextView) findViewById(R.id.web2)).setText(extras.getString("web2"));
             ((TextView) findViewById(R.id.twe2)).setText(extras.getString("twe2"));
             ((TextView) findViewById(R.id.twi2)).setText(extras.getString("twi2"));
 //            ((ImageButton) findViewById(R.id.sen2image)).setBackground(getBackgroundColor(extras.getString("par2")));
 
 //            ((TextView) findViewById(R.id.sen3)).setText(extras.getString("sen3"));
 //            ((TextView) findViewById(R.id.par3)).setText(extras.getString("par3"));
-            ((TextView) findViewById(R.id.ema3)).setText(extras.getString("ema3"));
-            ((TextView) findViewById(R.id.web3)).setText(extras.getString("web3"));
+//            ((TextView) findViewById(R.id.ema3)).setText(extras.getString("ema3"));
+//            ((TextView) findViewById(R.id.web3)).setText(extras.getString("web3"));
             ((TextView) findViewById(R.id.twe3)).setText(extras.getString("twe3"));
             ((TextView) findViewById(R.id.twi3)).setText(extras.getString("twi3"));
 //            ((ImageButton) findViewById(R.id.sen3image)).setBackground(getBackgroundColor(extras.getString("par3")));
@@ -230,7 +230,6 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         }}
 
     public void readMessagesArray(JsonReader reader) throws IOException {
-        System.out.println(reader);
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
@@ -243,6 +242,9 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 String last = "";
                 String chamber = "";
                 String party = "";
+                String email = "";
+                String website = "";
+                String handle = "";
                 while (reader.hasNext()) {
                     reader.beginObject();
                     while(reader.hasNext()) {
@@ -264,9 +266,15 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                                 default:    party = "Independant";
                                             break;
                             }
-                        }
-
-                        else if (field.equals("fec_ids")) {
+                        } else if (field.equals("oc_email")) {
+                            email = reader.nextString();
+                        } else if (field.equals("website")) {
+                            website = reader.nextString();
+                        } else if (field.equals("twitter_id")) {
+                            handle = reader.nextString();
+                        } else if (field.equals("state_name")) {
+                            state = reader.nextString();
+                        } else if (field.equals("fec_ids")) {
                             reader.beginArray();
                             while (reader.hasNext()) {
                                 System.out.println(reader.nextString());
@@ -295,26 +303,41 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                     reader.endObject();
 
                     System.out.println(i);
-                    System.out.println(i);
+                    System.out.println(j);
                     if (chamber.equals("senate")) {
                         if (i == 1) {
                             ((TextView) findViewById(R.id.sen1)).setText(first + " " + last);
                             ((TextView) findViewById(R.id.par1)).setText(party);
+                            ((TextView) findViewById(R.id.ema1)).setText(email);
                             ((ImageButton) findViewById(R.id.sen1Image)).setBackground(getBackgroundColor(party));
+                            ((TextView) findViewById(R.id.web1)).setText(website);
+                            ((TextView) findViewById(R.id.twe1)).setText("@" + handle);
                         } else {
                             ((TextView) findViewById(R.id.sen2)).setText(first + " " + last);
                             ((TextView) findViewById(R.id.par2)).setText(party);
+                            ((TextView) findViewById(R.id.ema2)).setText(email);
                             ((ImageButton) findViewById(R.id.sen2image)).setBackground(getBackgroundColor(party));
+                            ((TextView) findViewById(R.id.web2)).setText(website);
+                            ((TextView) findViewById(R.id.twe2)).setText("@" + handle);
                         }
                         i++;
                     } else {
                         if (j == 1) {
                             ((TextView) findViewById(R.id.sen3)).setText(first + " " + last);
                             ((TextView) findViewById(R.id.par3)).setText(party);
+                            ((TextView) findViewById(R.id.ema3)).setText(email);
                             ((ImageButton) findViewById(R.id.sen3image)).setBackground(getBackgroundColor(party));
+                            ((TextView) findViewById(R.id.web3)).setText(website);
+                            ((TextView) findViewById(R.id.twe3)).setText("@" + handle);
+                            String title = state;
+                            title += " District ";
+                            title += district;
+                            ((TextView) findViewById(R.id.header)).setText(title);
+
                         } else if (j == 2) {
                             ((TextView) findViewById(R.id.sen4)).setText(first + " " + last);
                             ((TextView) findViewById(R.id.par4)).setText(party);
+                            ((TextView) findViewById(R.id.ema4)).setText(email);
                             ((ImageButton) findViewById(R.id.sen4image)).setBackground(getBackgroundColor(party));
                         }
                         j++;
