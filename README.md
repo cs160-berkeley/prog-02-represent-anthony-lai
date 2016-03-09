@@ -16,4 +16,5 @@ See [your demo video title here] (https://www.youtube.com/watch?v=7OBaevSF1G0&fe
 
 ## Acknowledgments
 
-Shoutout to android docs for providing like 50% of the code that actually makes things runs behind the scenes.
+ * Shoutout to android docs for providing like 50% of the code that actually makes things runs behind the scenes.
+ * Also shoutout to catnip for the phone / watch communication
