@@ -1,10 +1,6 @@
 package com.example.sturmgewehr44.democrazy;
 
 import android.os.AsyncTask;
-
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.io.InputStream;
@@ -15,8 +11,6 @@ import android.util.Log;
  * Created by Sturmgewehr44 on 3/7/16.
  */
 public class GetDataAsynch  extends AsyncTask<String, Void, InputStream> {
-
-    private Exception exception;
 
     protected void onPreExecute() {
         System.out.println("starting");

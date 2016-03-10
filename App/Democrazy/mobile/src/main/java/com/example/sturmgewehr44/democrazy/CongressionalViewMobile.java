@@ -65,6 +65,11 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
     String state;
     private static final String TWITTER_KEY = "If5CSwJEhO6mThm2B9p91Iq0F";
     private static final String TWITTER_SECRET = "9QlTmQYUuTPiYCl8PZEYXTcMziaEaWHvu1NH0uKN5Zd4G4xu6Z";
+    private String id1 = "";
+    private String id2 = "";
+    private String id3 = "";
+    private String id4 = "";
+    private String id5 = "";
 
 
     @Override
@@ -87,65 +92,11 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 header.setText(title);
                 pullData(extras.getString("ZIPCODE"));
             } else {
-//                String title = extras.getString("state");
-//                title += "'s ";
-//                title += "239th ";
-//                title += "district";
-//                header.setText(title);
                 cases = 1;
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             }
 
-
-
-//            ((TextView) findViewById(R.id.sen1)).setText(extras.getString("sen1"));
-//            ((TextView) findViewById(R.id.par1)).setText(extras.getString("par1"));
-//            ((TextView) findViewById(R.id.ema1)).setText(extras.getString("ema1"));
-//            ((TextView) findViewById(R.id.web1)).setText(extras.getString("web1"));
-//            ((TextView) findViewById(R.id.twe1)).setText(extras.getString("twe1"));
-//            ((TextView) findViewById(R.id.twi1)).setText(extras.getString("twi1"));
-//            ((ImageButton) findViewById(R.id.sen1Image)).setBackground(getBackgroundColor(extras.getString("par1")));
-
-//            ((TextView) findViewById(R.id.sen2)).setText(extras.getString("sen2"));
-//            ((TextView) findViewById(R.id.par2)).setText(extras.getString("par2"));
-//            ((TextView) findViewById(R.id.ema2)).setText(extras.getString("ema2"));
-//            ((TextView) findViewById(R.id.web2)).setText(extras.getString("web2"));
-            ((TextView) findViewById(R.id.twe2)).setText(extras.getString("twe2"));
-            ((TextView) findViewById(R.id.twi2)).setText(extras.getString("twi2"));
-//            ((ImageButton) findViewById(R.id.sen2image)).setBackground(getBackgroundColor(extras.getString("par2")));
-
-//            ((TextView) findViewById(R.id.sen3)).setText(extras.getString("sen3"));
-//            ((TextView) findViewById(R.id.par3)).setText(extras.getString("par3"));
-//            ((TextView) findViewById(R.id.ema3)).setText(extras.getString("ema3"));
-//            ((TextView) findViewById(R.id.web3)).setText(extras.getString("web3"));
-            ((TextView) findViewById(R.id.twe3)).setText(extras.getString("twe3"));
-            ((TextView) findViewById(R.id.twi3)).setText(extras.getString("twi3"));
-//            ((ImageButton) findViewById(R.id.sen3image)).setBackground(getBackgroundColor(extras.getString("par3")));
-
-            if (cases >= 2) {
-                ((TextView) findViewById(R.id.sen4)).setText(extras.getString("sen4"));
-                ((TextView) findViewById(R.id.par4)).setText(extras.getString("par4"));
-                ((TextView) findViewById(R.id.ema4)).setText(extras.getString("ema4"));
-                ((TextView) findViewById(R.id.web4)).setText(extras.getString("web4"));
-                ((TextView) findViewById(R.id.twe4)).setText(extras.getString("twe4"));
-                ((TextView) findViewById(R.id.twi4)).setText(extras.getString("twi4"));
-                ((ImageButton) findViewById(R.id.sen4image)).setBackground(getBackgroundColor(extras.getString("par4")));
-            } else {
-                ((LinearLayout) findViewById(R.id.case2)).setVisibility(View.GONE);
-            }
-            if (cases >= 3) {
-                ((TextView) findViewById(R.id.sen5)).setText(extras.getString("sen5"));
-                ((TextView) findViewById(R.id.par5)).setText(extras.getString("par5"));
-                ((TextView) findViewById(R.id.ema5)).setText(extras.getString("ema5"));
-                ((TextView) findViewById(R.id.web5)).setText(extras.getString("web5"));
-                ((TextView) findViewById(R.id.twe5)).setText(extras.getString("twe5"));
-                ((TextView) findViewById(R.id.twi5)).setText(extras.getString("twi5"));
-                ((ImageButton) findViewById(R.id.sen5image)).setBackground(getBackgroundColor(extras.getString("par5")));
-
-            } else {
-                ((LinearLayout) findViewById(R.id.case3)).setVisibility(View.GONE);
-            }
         } else {
         }
         msen1Button = (ImageButton) findViewById(R.id.sen1Image);
@@ -158,9 +109,13 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         msen1Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (id1.equals("")) {
+                    return;
+                }
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
-                detIntent.putExtra("VALUE", "1");
+                detIntent.putExtra("VALUE", id1);
+//                detIntent.putExtra("VALUE", "1");
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -169,9 +124,12 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         msen2Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (id2.equals("")) {
+                    return;
+                }
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
-                detIntent.putExtra("VALUE", "2");
+                detIntent.putExtra("VALUE", id2);
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -181,9 +139,12 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         msen3Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (id3.equals("")) {
+                    return;
+                }
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
-                detIntent.putExtra("VALUE", "3");
+                detIntent.putExtra("VALUE", id3);
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -192,9 +153,12 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         msen4Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (id4.equals("")) {
+                    return;
+                }
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
-                detIntent.putExtra("VALUE", "4");
+                detIntent.putExtra("VALUE", id4);
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -203,9 +167,12 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         msen5Button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if (id5.equals("")) {
+                    return;
+                }
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
-                detIntent.putExtra("VALUE", "5");
+                detIntent.putExtra("VALUE", id5);
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -252,42 +219,6 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
             reader.close();
         }}
 
-    public void readJsonTweet(InputStream in) throws IOException {
-        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
-        try {
-            readTweet(reader);
-            return;
-        } finally {
-            reader.close();
-        }}
-
-    public void readTweet(JsonReader reader) throws IOException {
-        reader.beginObject();
-        while (reader.hasNext()) {
-            String name = reader.nextName();
-            System.out.println(name);
-            if (name.equals("results")) {
-                reader.beginArray();
-                while (reader.hasNext()) {
-                    System.out.println(reader.nextString());
-                }
-                reader.endArray();
-            } else if (name.equals("count")) {
-                cases = reader.nextInt();
-                System.out.println(cases);
-            } else if (name.equals("page")) {
-                reader.beginObject();
-                while (reader.hasNext()) {
-                    reader.nextName();
-                    reader.nextInt();
-                }
-                reader.endObject();
-            }
-        }
-        reader.endObject();
-        return;
-    }
-
     public void readMessagesArray(JsonReader reader) throws IOException {
         reader.beginObject();
         while (reader.hasNext()) {
@@ -304,6 +235,7 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 String email = "";
                 String website = "";
                 String handle = "";
+                String id = "";
                 while (reader.hasNext()) {
                     reader.beginObject();
                     while(reader.hasNext()) {
@@ -311,7 +243,10 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                         System.out.println(field);
                         if (field.equals("chamber")) {
                             chamber = reader.nextString();
-                        } else if (field.equals("first_name")) {
+                        } else if (field.equals("bioguide_id")) {
+                            id = reader.nextString();
+                        }
+                        else if (field.equals("first_name")) {
                             first = reader.nextString();
                         } else if (field.equals("last_name")) {
                             last = reader.nextString();
@@ -365,110 +300,38 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                     System.out.println(j);
                     if (chamber.equals("senate")) {
                         if (i == 1) {
-                            ((TextView) findViewById(R.id.sen1)).setText(first + " " + last);
-                            ((TextView) findViewById(R.id.par1)).setText(party);
-                            ((TextView) findViewById(R.id.ema1)).setText(email);
-                            ((LinearLayout) findViewById(R.id.box1)).setBackground(getBackgroundColor(party));
-                            ((TextView) findViewById(R.id.web1)).setText(website);
-                            ((TextView) findViewById(R.id.twe1)).setText("@" + handle);
-                            final String twit = handle;
-
-                            TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
-                            Fabric.with(this, new Twitter(authConfig));
-
-                            TwitterCore.getInstance().logInGuest(new Callback<AppSession>() {
-                                @Override
-                                public void success(Result<AppSession> appSessionResult) {
-                                    AppSession session = appSessionResult.data;
-                                    TwitterApiClient twitterApiClient = TwitterCore.getInstance().getApiClient(session);
-                                    twitterApiClient.getStatusesService().userTimeline(null, twit, 1, null, null, false, false, false, true, new Callback<List<Tweet>>() {
-                                        @Override
-                                        public void success(Result<List<Tweet>> listResult) {
-                                            for(Tweet tweet: listResult.data) {
-                                                ((TextView) findViewById(R.id.twi1)).setText(tweet.text);
-                                                try {
-                                                    ((ImageButton) findViewById(R.id.sen1Image)).setImageBitmap(new DownloadImageAsynch().execute(tweet.user.profileImageUrl.replace("_normal", "")).get());
-                                                } catch(java.lang.InterruptedException error) {
-                                                    System.out.println("c");
-                                                } catch(java.util.concurrent.ExecutionException error) {
-                                                    System.out.println("d");
-                                                }
-//                                                long tweetId = tweet.id;
-//                                                TweetUtils.loadTweet(tweetId, new Callback<Tweet>() {
-//                                                    @Override
-//                                                    public void success(Result<Tweet> result) {
-//                                                        TweetView tweetView = new TweetView(CongressionalViewMobile.this, result.data);
-//                                                        ((LinearLayout) findViewById(R.id.box1)).addView(tweetView);
-////                                                        ((LinearLayout) findViewById(R.id.tweet1)).setVisibility(View.GONE);
-//                                                    }
-//
-//                                                    @Override
-//                                                    public void failure(TwitterException exception) {
-//                                                        Log.d("TwitterKit", "Load Tweet failure", exception);
-//                                                    }
-//                                                });
-                                            }
-                                        }
-                                        @Override
-                                        public void failure(TwitterException e) {
-                                            e.printStackTrace();
-                                        }
-                                    });
-                                }
-                                @Override
-                                public void failure(TwitterException e) {
-                                    e.printStackTrace();
-                                }
-                            });
-//                            final ViewGroup parentView = (ViewGroup) getWindow().getDecorView().getRootView();
-                            //
-//                            TweetUtils.loadTweet(tweetId, new Callback<Tweet>() {
-//                                @Override
-//                                public void success(Result<Tweet> result) {
-//                                    TweetView tweetView = new TweetView(CongressionalViewMobile.this, result.data);
-//                                    parentView.addView(tweetView);
-//                                }
-//
-//                                @Override
-//                                public void failure(TwitterException exception) {
-//                                    Log.d("TwitterKit", "Load Tweet failure", exception);
-//                                }
-//                            });
-
-
-
-
+                            id1 = id;
+                            showData(R.id.sen1, R.id.par1, R.id.ema1, R.id.sen1Image, R.id.web1, R.id.twe1, R.id.box1, R.id.twi1, first + " " + last, party, email, website, handle);
                         } else {
-                            ((TextView) findViewById(R.id.sen2)).setText(first + " " + last);
-                            ((TextView) findViewById(R.id.par2)).setText(party);
-                            ((TextView) findViewById(R.id.ema2)).setText(email);
-                            ((ImageButton) findViewById(R.id.sen2image)).setBackground(getBackgroundColor(party));
-                            ((TextView) findViewById(R.id.web2)).setText(website);
-                            ((TextView) findViewById(R.id.twe2)).setText("@" + handle);
+                            id2 = id;
+                            showData(R.id.sen2, R.id.par2, R.id.ema2, R.id.sen2image, R.id.web2, R.id.twe2, R.id.box2, R.id.twi2, first + " " + last, party, email, website, handle);
                         }
                         i++;
                     } else {
                         if (j == 1) {
-                            ((TextView) findViewById(R.id.sen3)).setText(first + " " + last);
-                            ((TextView) findViewById(R.id.par3)).setText(party);
-                            ((TextView) findViewById(R.id.ema3)).setText(email);
-                            ((ImageButton) findViewById(R.id.sen3image)).setBackground(getBackgroundColor(party));
-                            ((TextView) findViewById(R.id.web3)).setText(website);
-                            ((TextView) findViewById(R.id.twe3)).setText("@" + handle);
+                            id3 = id;
+                            showData(R.id.sen3, R.id.par3, R.id.ema3, R.id.sen3image, R.id.web3, R.id.twe3, R.id.box3, R.id.twi3, first + " " + last, party, email, website, handle);
                             String title = state;
                             title += " District ";
                             title += district;
                             ((TextView) findViewById(R.id.header)).setText(title);
 
                         } else if (j == 2) {
-                            ((TextView) findViewById(R.id.sen4)).setText(first + " " + last);
-                            ((TextView) findViewById(R.id.par4)).setText(party);
-                            ((TextView) findViewById(R.id.ema4)).setText(email);
-                            ((ImageButton) findViewById(R.id.sen4image)).setBackground(getBackgroundColor(party));
+                            id4 = id;
+                            showData(R.id.sen4, R.id.par4, R.id.ema4, R.id.sen4image, R.id.web4, R.id.twe4, R.id.box4, R.id.twi4, first + " " + last, party, email, website, handle);
+                        } else if (j == 5) {
+                            id5 = id;
+                            showData(R.id.sen5, R.id.par5, R.id.ema5, R.id.sen5image, R.id.web5, R.id.twe5, R.id.box5, R.id.twi5, first + " " + last, party, email, website, handle);
                         }
                         j++;
                     }
 
+                }
+                if (j <= 3) {
+                    ((LinearLayout) findViewById(R.id.box5)).setVisibility(View.GONE);
+                }
+                if (j <= 2) {
+                    ((LinearLayout) findViewById(R.id.box4)).setVisibility(View.GONE);
                 }
                 reader.endArray();
             } else if (name.equals("count")) {
@@ -485,6 +348,50 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         }
         reader.endObject();
         return;
+    }
+
+    public void showData(int sen, int par, int ema, final int image, int web, int twe, int box, final int twi, String name, String party, String email, String website, String handle) {
+        ((TextView) findViewById(sen)).setText(name);
+        ((TextView) findViewById(par)).setText(party);
+        ((TextView) findViewById(ema)).setText(email);
+        ((LinearLayout) findViewById(box)).setBackground(getBackgroundColor(party));
+        ((TextView) findViewById(web)).setText(website);
+        ((TextView) findViewById(twe)).setText("@" + handle);
+        final String twit = handle;
+
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
+
+        TwitterCore.getInstance().logInGuest(new Callback<AppSession>() {
+            @Override
+            public void success(Result<AppSession> appSessionResult) {
+                AppSession session = appSessionResult.data;
+                TwitterApiClient twitterApiClient = TwitterCore.getInstance().getApiClient(session);
+                twitterApiClient.getStatusesService().userTimeline(null, twit, 1, null, null, false, false, false, true, new Callback<List<Tweet>>() {
+                    @Override
+                    public void success(Result<List<Tweet>> listResult) {
+                        for(Tweet tweet: listResult.data) {
+                            ((TextView) findViewById(twi)).setText(tweet.text);
+                            try {
+                                ((ImageButton) findViewById(image)).setImageBitmap(new DownloadImageAsynch().execute(tweet.user.profileImageUrl.replace("_normal", "")).get());
+                            } catch(java.lang.InterruptedException error) {
+                                System.out.println("c");
+                            } catch(java.util.concurrent.ExecutionException error) {
+                                System.out.println("d");
+                            }
+                        }
+                    }
+                    @Override
+                    public void failure(TwitterException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+            @Override
+            public void failure(TwitterException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public Drawable getBackgroundColor(String party) {
