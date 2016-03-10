@@ -26,7 +26,6 @@ public class GetDataAsynch  extends AsyncTask<String, Void, InputStream> {
         System.out.println(zip);
         if (zip.length == 1) {
             try {
-                zip[0] = "94704";
                 URL url = new URL("https://congress.api.sunlightfoundation.com/legislators/locate?zip="+ zip[0] +"&apikey=a96714973c0748038c1b2e35ebdc690a");
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 return new BufferedInputStream(urlConnection.getInputStream());

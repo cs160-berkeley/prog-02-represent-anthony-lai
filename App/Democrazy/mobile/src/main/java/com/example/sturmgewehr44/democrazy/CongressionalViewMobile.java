@@ -1,6 +1,7 @@
 package com.example.sturmgewehr44.democrazy;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.location.Location;
@@ -11,7 +12,9 @@ import android.os.Message;
 import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.JsonToken;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -29,6 +32,22 @@ import android.util.JsonReader;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationServices;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.AppSession;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterApiClient;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.models.Tweet;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.models.User;
+import com.twitter.sdk.android.core.services.StatusesService;
+import com.twitter.sdk.android.tweetui.TweetUtils;
+import com.twitter.sdk.android.tweetui.TweetView;
+
+import io.fabric.sdk.android.Fabric;
+
 public class CongressionalViewMobile extends AppCompatActivity implements LocationListener {
 
     private ImageButton msen1Button;
@@ -44,6 +63,8 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
     LocationListener mLocationListener;
     int district;
     String state;
+    private static final String TWITTER_KEY = "If5CSwJEhO6mThm2B9p91Iq0F";
+    private static final String TWITTER_SECRET = "9QlTmQYUuTPiYCl8PZEYXTcMziaEaWHvu1NH0uKN5Zd4G4xu6Z";
 
 
     @Override
@@ -54,6 +75,8 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         StrictMode.setThreadPolicy(policy);
         final Intent intent = getIntent();
         Bundle extras = intent.getExtras();
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
 
         if (extras != null) {
             cases = Integer.parseInt(extras.getString("cases"));
@@ -62,7 +85,7 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 String title = "Congressmen for ";
                 title += extras.getString("ZIPCODE");
                 header.setText(title);
-                pullData(title);
+                pullData(extras.getString("ZIPCODE"));
             } else {
 //                String title = extras.getString("state");
 //                title += "'s ";
@@ -80,8 +103,8 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
 //            ((TextView) findViewById(R.id.par1)).setText(extras.getString("par1"));
 //            ((TextView) findViewById(R.id.ema1)).setText(extras.getString("ema1"));
 //            ((TextView) findViewById(R.id.web1)).setText(extras.getString("web1"));
-            ((TextView) findViewById(R.id.twe1)).setText(extras.getString("twe1"));
-            ((TextView) findViewById(R.id.twi1)).setText(extras.getString("twi1"));
+//            ((TextView) findViewById(R.id.twe1)).setText(extras.getString("twe1"));
+//            ((TextView) findViewById(R.id.twi1)).setText(extras.getString("twi1"));
 //            ((ImageButton) findViewById(R.id.sen1Image)).setBackground(getBackgroundColor(extras.getString("par1")));
 
 //            ((TextView) findViewById(R.id.sen2)).setText(extras.getString("sen2"));
@@ -229,6 +252,42 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
             reader.close();
         }}
 
+    public void readJsonTweet(InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            readTweet(reader);
+            return;
+        } finally {
+            reader.close();
+        }}
+
+    public void readTweet(JsonReader reader) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            System.out.println(name);
+            if (name.equals("results")) {
+                reader.beginArray();
+                while (reader.hasNext()) {
+                    System.out.println(reader.nextString());
+                }
+                reader.endArray();
+            } else if (name.equals("count")) {
+                cases = reader.nextInt();
+                System.out.println(cases);
+            } else if (name.equals("page")) {
+                reader.beginObject();
+                while (reader.hasNext()) {
+                    reader.nextName();
+                    reader.nextInt();
+                }
+                reader.endObject();
+            }
+        }
+        reader.endObject();
+        return;
+    }
+
     public void readMessagesArray(JsonReader reader) throws IOException {
         reader.beginObject();
         while (reader.hasNext()) {
@@ -309,9 +368,76 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                             ((TextView) findViewById(R.id.sen1)).setText(first + " " + last);
                             ((TextView) findViewById(R.id.par1)).setText(party);
                             ((TextView) findViewById(R.id.ema1)).setText(email);
-                            ((ImageButton) findViewById(R.id.sen1Image)).setBackground(getBackgroundColor(party));
+                            ((LinearLayout) findViewById(R.id.box1)).setBackground(getBackgroundColor(party));
                             ((TextView) findViewById(R.id.web1)).setText(website);
                             ((TextView) findViewById(R.id.twe1)).setText("@" + handle);
+                            final String twit = handle;
+
+                            TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+                            Fabric.with(this, new Twitter(authConfig));
+
+                            TwitterCore.getInstance().logInGuest(new Callback<AppSession>() {
+                                @Override
+                                public void success(Result<AppSession> appSessionResult) {
+                                    AppSession session = appSessionResult.data;
+                                    TwitterApiClient twitterApiClient = TwitterCore.getInstance().getApiClient(session);
+                                    twitterApiClient.getStatusesService().userTimeline(null, twit, 1, null, null, false, false, false, true, new Callback<List<Tweet>>() {
+                                        @Override
+                                        public void success(Result<List<Tweet>> listResult) {
+                                            for(Tweet tweet: listResult.data) {
+                                                ((TextView) findViewById(R.id.twi1)).setText(tweet.text);
+                                                try {
+                                                    ((ImageButton) findViewById(R.id.sen1Image)).setImageBitmap(new DownloadImageAsynch().execute(tweet.user.profileImageUrl.replace("_normal", "")).get());
+                                                } catch(java.lang.InterruptedException error) {
+                                                    System.out.println("c");
+                                                } catch(java.util.concurrent.ExecutionException error) {
+                                                    System.out.println("d");
+                                                }
+//                                                long tweetId = tweet.id;
+//                                                TweetUtils.loadTweet(tweetId, new Callback<Tweet>() {
+//                                                    @Override
+//                                                    public void success(Result<Tweet> result) {
+//                                                        TweetView tweetView = new TweetView(CongressionalViewMobile.this, result.data);
+//                                                        ((LinearLayout) findViewById(R.id.box1)).addView(tweetView);
+////                                                        ((LinearLayout) findViewById(R.id.tweet1)).setVisibility(View.GONE);
+//                                                    }
+//
+//                                                    @Override
+//                                                    public void failure(TwitterException exception) {
+//                                                        Log.d("TwitterKit", "Load Tweet failure", exception);
+//                                                    }
+//                                                });
+                                            }
+                                        }
+                                        @Override
+                                        public void failure(TwitterException e) {
+                                            e.printStackTrace();
+                                        }
+                                    });
+                                }
+                                @Override
+                                public void failure(TwitterException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+//                            final ViewGroup parentView = (ViewGroup) getWindow().getDecorView().getRootView();
+                            //
+//                            TweetUtils.loadTweet(tweetId, new Callback<Tweet>() {
+//                                @Override
+//                                public void success(Result<Tweet> result) {
+//                                    TweetView tweetView = new TweetView(CongressionalViewMobile.this, result.data);
+//                                    parentView.addView(tweetView);
+//                                }
+//
+//                                @Override
+//                                public void failure(TwitterException exception) {
+//                                    Log.d("TwitterKit", "Load Tweet failure", exception);
+//                                }
+//                            });
+
+
+
+
                         } else {
                             ((TextView) findViewById(R.id.sen2)).setText(first + " " + last);
                             ((TextView) findViewById(R.id.par2)).setText(party);
@@ -360,54 +486,6 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         reader.endObject();
         return;
     }
-
-//    public void readMessage(JsonReader reader) throws IOException {
-//        long id = -1;
-//        String text = null;
-////        User user = null;
-//        List geo = null;
-//        int count = -1;
-//
-//        reader.beginObject();
-//        while (reader.hasNext()) {
-//            String name = reader.nextName();
-//            if (name.equals("count")) {
-//                count = reader.nextInt();
-//                System.out.println(count);
-//                System.out.println("success");
-//            } else if (name.equals("text")) {
-//                text = reader.nextString();
-//            } else if (name.equals("geo") && reader.peek() != JsonToken.NULL) {
-//                geo = readDoublesArray(reader);
-//            } else if (name.equals("user")) {
-//                readSenator(reader);
-//            } else {
-//                reader.skipValue();
-//            }
-//        }
-//        reader.endObject();
-//        return;
-//    }
-
-//    public List readDoublesArray(JsonReader reader) throws IOException {
-//        List doubles = new ArrayList();
-//
-//        reader.beginArray();
-//        while (reader.hasNext()) {
-//            doubles.add(reader.nextDouble());
-//        }
-//        reader.endArray();
-//        return doubles;
-//    }
-
-//    public void readSenator(JsonReader reader) throws IOException {
-//        String name = null;
-//        reader.beginObject();
-//        while (reader.hasNext()) {
-//            String field = reader.nextName();
-////            if name.equals("")
-//        }
-//    }
 
     public Drawable getBackgroundColor(String party) {
         switch (party) {

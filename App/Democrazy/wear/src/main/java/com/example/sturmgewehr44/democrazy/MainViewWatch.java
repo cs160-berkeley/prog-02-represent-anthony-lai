@@ -1,5 +1,8 @@
 package com.example.sturmgewehr44.democrazy;
 
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import io.fabric.sdk.android.Fabric;
 import java.util.Random;
 import android.app.FragmentManager;
 import android.content.Intent;
@@ -18,6 +21,11 @@ import android.hardware.SensorEventListener;
 
 public class MainViewWatch extends AppCompatActivity implements SensorEventListener {
 
+    // Note: Your consumer key and secret should be obfuscated in your source code before shipping.
+//    private static final String TWITTER_KEY = "If5CSwJEhO6mThm2B9p91Iq0F";
+//    private static final String TWITTER_SECRET = "9QlTmQYUuTPiYCl8PZEYXTcMziaEaWHvu1NH0uKN5Zd4G4xu6Z";
+
+
     private Context ctx;
     private SensorManager mSensorManager;
     private Sensor mAccelerometer;
@@ -27,6 +35,8 @@ public class MainViewWatch extends AppCompatActivity implements SensorEventListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+//        Fabric.with(this, new Twitter(authConfig));
         setContentView(R.layout.activity_main_view_watch);
         final WatchViewStub stub = (WatchViewStub) findViewById(R.id.watch_view_stub);
         ctx = this;

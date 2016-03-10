@@ -96,11 +96,11 @@
             />
 
         <Space
-            android:layout_width="fill_parent"
-            android:layout_height="50px" />
+        android:layout_width="fill_parent"
+        android:layout_height="50px" />
 
         <Button
-            android:layout_width="200dp"
+            android:layout_width="215dp"
             android:layout_height="wrap_content"
             android:text="Use Current Location"
             android:id="@+id/loc_btn"
@@ -109,6 +109,19 @@
             android:gravity="center"
             android:layout_gravity="center_horizontal"
             />
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="50px" />
+
+        <com.twitter.sdk.android.core.identity.TwitterLoginButton
+            android:id="@+id/twitter_login_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center_horizontal"
+            android:layout_centerInParent="true"/>
+
 
     </LinearLayout>
 

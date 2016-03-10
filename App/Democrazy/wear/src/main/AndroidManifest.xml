@@ -33,6 +33,10 @@
             android:exported="true"></service>
         <uses-feature android:name="android.hardware.sensor.accelerometer" android:required = "true"/>
         <uses-permission android:name="android.permission.INTERNET"/>
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="51d8be6f14d2e52053e5fe7b8d2cbb1cb57c3768" />
     </application>
 
+    <uses-permission android:name="android.permission.INTERNET" />
 </manifest>
