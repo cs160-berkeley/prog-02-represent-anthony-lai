@@ -147,16 +147,20 @@
                                 android:layout_height="wrap_content">
 
                                 <ImageView
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:id="@+id/imageView" />
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:id="@+id/imageView"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/twitter"
+                                    android:scaleType="fitCenter" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
                                     android:text="\@NewDEALZ"
-                                    android:id="@+id/twe1" />
+                                    android:id="@+id/twe1"
+                                    android:textColor="@color/lightBlack" />
 
                                 <Space
                                     android:layout_width="wrap_content"
@@ -170,7 +174,10 @@
                                 android:text="\@neversurrender tanks 4 cash brah?"
                                 android:id="@+id/twi1"
                                 android:paddingLeft="4dp"
-                                android:paddingRight="4dp" />
+                                android:paddingRight="4dp"
+                                android:textSize="13dp"
+                                android:textIsSelectable="false"
+                                android:textColor="@color/lighterBlack" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -274,16 +281,20 @@
                                 android:layout_height="wrap_content" >
 
                                 <ImageView
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:id="@+id/imageView6" />
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:id="@+id/imageView6"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/twitter"
+                                    android:scaleType="fitCenter" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
                                     android:text="\@NewDEALZ"
-                                    android:id="@+id/twe2" />
+                                    android:id="@+id/twe2"
+                                    android:textColor="@color/lightBlack" />
 
                                 <Space
                                     android:layout_width="wrap_content"
@@ -297,7 +308,10 @@
                                 android:text="\@neversurrender tanks 4 cash brah?"
                                 android:id="@+id/twi2"
                                 android:paddingLeft="4dp"
-                                android:paddingRight="4dp" />
+                                android:paddingRight="4dp"
+                                android:textSize="13dp"
+                                android:textIsSelectable="false"
+                                android:textColor="@color/lighterBlack" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -412,16 +426,20 @@
                                 android:layout_height="wrap_content" >
 
                                 <ImageView
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:id="@+id/imageView2" />
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:id="@+id/imageView2"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/twitter"
+                                    android:scaleType="fitCenter" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
                                     android:text="\@NewDEALZ"
-                                    android:id="@+id/twe3" />
+                                    android:id="@+id/twe3"
+                                    android:textColor="@color/lightBlack" />
 
                                 <Space
                                     android:layout_width="wrap_content"
@@ -435,7 +453,10 @@
                                 android:text="\@neversurrender tanks 4 cash brah?"
                                 android:id="@+id/twi3"
                                 android:paddingLeft="4dp"
-                                android:paddingRight="4dp" />
+                                android:paddingRight="4dp"
+                                android:textSize="13dp"
+                                android:textIsSelectable="false"
+                                android:textColor="@color/lighterBlack" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -538,16 +559,20 @@
                                 android:layout_height="wrap_content" >
 
                                 <ImageView
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:id="@+id/imageView3" />
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:id="@+id/imageView3"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/twitter"
+                                    android:scaleType="fitCenter" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
                                     android:text="\@NewDEALZ"
-                                    android:id="@+id/twe4" />
+                                    android:id="@+id/twe4"
+                                    android:textColor="@color/lightBlack" />
 
                                 <Space
                                     android:layout_width="wrap_content"
@@ -561,7 +586,10 @@
                                 android:text="\@neversurrender tanks 4 cash brah?"
                                 android:id="@+id/twi4"
                                 android:paddingLeft="4dp"
-                                android:paddingRight="4dp" />
+                                android:paddingRight="4dp"
+                                android:textSize="13dp"
+                                android:textIsSelectable="false"
+                                android:textColor="@color/lighterBlack" />
                         </LinearLayout>
                     </LinearLayout>
 
@@ -664,16 +692,20 @@
                                 android:layout_height="wrap_content" >
 
                                 <ImageView
-                                    android:layout_width="8dp"
-                                    android:layout_height="8dp"
-                                    android:id="@+id/imageView4" />
+                                    android:layout_width="20dp"
+                                    android:layout_height="20dp"
+                                    android:id="@+id/imageView4"
+                                    android:adjustViewBounds="true"
+                                    android:src="@drawable/twitter"
+                                    android:scaleType="fitCenter" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:textAppearance="?android:attr/textAppearanceSmall"
                                     android:text="\@NewDEALZ"
-                                    android:id="@+id/twe5" />
+                                    android:id="@+id/twe5"
+                                    android:textColor="@color/lightBlack" />
 
                                 <Space
                                     android:layout_width="wrap_content"
@@ -687,7 +719,10 @@
                                 android:text="\@neversurrender tanks 4 cash brah?"
                                 android:id="@+id/twi5"
                                 android:paddingLeft="4dp"
-                                android:paddingRight="4dp" />
+                                android:paddingRight="4dp"
+                                android:textSize="13dp"
+                                android:textIsSelectable="false"
+                                android:textColor="@color/lighterBlack" />
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>

@@ -61,8 +61,8 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
     Double longitude = 0.0;
     LocationManager mLocationManager;
     LocationListener mLocationListener;
-    int district;
-    String state;
+    private int district;
+    private String state;
     private static final String TWITTER_KEY = "If5CSwJEhO6mThm2B9p91Iq0F";
     private static final String TWITTER_SECRET = "9QlTmQYUuTPiYCl8PZEYXTcMziaEaWHvu1NH0uKN5Zd4G4xu6Z";
     private String id1 = "";
@@ -70,6 +70,22 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
     private String id3 = "";
     private String id4 = "";
     private String id5 = "";
+    private String handle1 = "";
+    private String handle2 = "";
+    private String handle3 = "";
+    private String handle4 = "";
+    private String handle5 = "";
+    private String party1 = "";
+    private String party2 = "";
+    private String party3 = "";
+    private String party4 = "";
+    private String party5 = "";
+    private String term_end1 ="";
+    private String term_end2 ="";
+    private String term_end3 ="";
+    private String term_end4 ="";
+    private String term_end5 ="";
+    private String zip = "";
 
 
     @Override
@@ -85,12 +101,9 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
 
         if (extras != null) {
             cases = Integer.parseInt(extras.getString("cases"));
-            TextView header = (TextView) findViewById(R.id.header);
             if (extras.getString("TYPE").equals("ZIP")) {
-                String title = "Congressmen for ";
-                title += extras.getString("ZIPCODE");
-                header.setText(title);
-                pullData(extras.getString("ZIPCODE"));
+                zip = extras.getString("ZIPCODE");
+                pullData(zip);
             } else {
                 cases = 1;
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -113,9 +126,12 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                     return;
                 }
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
-                detIntent.putExtras(intent.getExtras());
                 detIntent.putExtra("VALUE", id1);
-//                detIntent.putExtra("VALUE", "1");
+                detIntent.putExtra("HANDLE", handle1);
+                detIntent.putExtra("PARTY", party1);
+                detIntent.putExtra("ROLE", "Senator");
+                detIntent.putExtra("END", term_end1);
+                detIntent.putExtra("NAME", ((TextView) findViewById(R.id.sen1)).getText());
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -130,6 +146,11 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
                 detIntent.putExtra("VALUE", id2);
+                detIntent.putExtra("HANDLE", handle2);
+                detIntent.putExtra("PARTY", party2);
+                detIntent.putExtra("ROLE", "Senator");
+                detIntent.putExtra("END", term_end2);
+                detIntent.putExtra("NAME", ((TextView) findViewById(R.id.sen2)).getText());
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -145,6 +166,11 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
                 detIntent.putExtra("VALUE", id3);
+                detIntent.putExtra("HANDLE", handle3);
+                detIntent.putExtra("PARTY", party3);
+                detIntent.putExtra("ROLE", "Representative");
+                detIntent.putExtra("END", term_end3);
+                detIntent.putExtra("NAME", ((TextView) findViewById(R.id.sen3)).getText());
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -159,6 +185,11 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
                 detIntent.putExtra("VALUE", id4);
+                detIntent.putExtra("HANDLE", handle4);
+                detIntent.putExtra("PARTY", party4);
+                detIntent.putExtra("ROLE", "Representative");
+                detIntent.putExtra("END", term_end4);
+                detIntent.putExtra("NAME", ((TextView) findViewById(R.id.sen4)).getText());
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -173,6 +204,11 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 Intent detIntent = new Intent(getBaseContext(), DetailedViewMobile.class);
                 detIntent.putExtras(intent.getExtras());
                 detIntent.putExtra("VALUE", id5);
+                detIntent.putExtra("HANDLE", handle5);
+                detIntent.putExtra("PARTY", party5);
+                detIntent.putExtra("ROLE", "Representative");
+                detIntent.putExtra("END", term_end5);
+                detIntent.putExtra("NAME", ((TextView) findViewById(R.id.sen5)).getText());
                 detIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(detIntent);
             }
@@ -182,12 +218,12 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
 
     public void pullData(String zipcode) {
         try {
-            InputStream in = new GetDataAsynch().execute(zipcode).get();
+            InputStream in = new GetDataAsynch().execute("https://congress.api.sunlightfoundation.com/legislators/locate?zip="+ zipcode +"&apikey=a96714973c0748038c1b2e35ebdc690a").get();
             readJsonStream(in);
         } catch(java.net.MalformedURLException error) {
-            System.out.println("fucka");
+            System.out.println("a");
         } catch(java.io.IOException error) {
-            System.out.println("fuckb");
+            System.out.println("b");
         } catch(java.lang.InterruptedException error) {
             System.out.println("c");
         } catch(java.util.concurrent.ExecutionException error) {
@@ -197,12 +233,12 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
 
     public void pullData() {
         try {
-            InputStream in = new GetDataAsynch().execute(Double.toString(latitude), Double.toString(longitude)).get();
+            InputStream in = new GetDataAsynch().execute("https://congress.api.sunlightfoundation.com/legislators/locate?latitude=" + Double.toString(latitude) + "&longitude="+ Double.toString(longitude) +"&apikey=a96714973c0748038c1b2e35ebdc690a").get();
             readJsonStream(in);
         } catch(java.net.MalformedURLException error) {
-            System.out.println("fucka");
+            System.out.println("a");
         } catch(java.io.IOException error) {
-            System.out.println("fuckb");
+            System.out.println("b");
         } catch(java.lang.InterruptedException error) {
             System.out.println("c");
         } catch(java.util.concurrent.ExecutionException error) {
@@ -217,7 +253,8 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
             return;
         } finally {
             reader.close();
-        }}
+        }
+    }
 
     public void readMessagesArray(JsonReader reader) throws IOException {
         reader.beginObject();
@@ -236,17 +273,16 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 String website = "";
                 String handle = "";
                 String id = "";
+                String term = "";
                 while (reader.hasNext()) {
                     reader.beginObject();
                     while(reader.hasNext()) {
                         String field = reader.nextName();
-                        System.out.println(field);
                         if (field.equals("chamber")) {
                             chamber = reader.nextString();
                         } else if (field.equals("bioguide_id")) {
                             id = reader.nextString();
-                        }
-                        else if (field.equals("first_name")) {
+                        } else if (field.equals("first_name")) {
                             first = reader.nextString();
                         } else if (field.equals("last_name")) {
                             last = reader.nextString();
@@ -268,48 +304,40 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                             handle = reader.nextString();
                         } else if (field.equals("state_name")) {
                             state = reader.nextString();
-                        } else if (field.equals("fec_ids")) {
-                            reader.beginArray();
-                            while (reader.hasNext()) {
-                                System.out.println(reader.nextString());
-                            }
-                            reader.endArray();
-                        } else if (field.equals("in_office")) {
-                            reader.nextBoolean();
-                        } else if (field.equals("votesmart_id")) {
-                            reader.nextInt();
                         } else if (field.equals("district")) {
                             if (reader.peek() == JsonToken.NUMBER) {
                                 district = reader.nextInt();
                             } else {
                                 reader.nextNull();
                             }
+                        } else if (field.equals("term_end")) {
+                            term = reader.nextString();
                         } else {
-                            if (reader.peek() == JsonToken.NULL) {
-                                System.out.println("null");
-                                reader.nextNull();
-                            } else {
-                                System.out.println(reader.nextString());
-                            }
-
+                            reader.skipValue();
                         }
                     }
                     reader.endObject();
-
-                    System.out.println(i);
-                    System.out.println(j);
                     if (chamber.equals("senate")) {
                         if (i == 1) {
+                            handle1 = handle;
                             id1 = id;
+                            party1 = party;
+                            term_end1 = term;
                             showData(R.id.sen1, R.id.par1, R.id.ema1, R.id.sen1Image, R.id.web1, R.id.twe1, R.id.box1, R.id.twi1, first + " " + last, party, email, website, handle);
                         } else {
+                            handle2 = handle;
                             id2 = id;
+                            party2 = party;
+                            term_end2 = term;
                             showData(R.id.sen2, R.id.par2, R.id.ema2, R.id.sen2image, R.id.web2, R.id.twe2, R.id.box2, R.id.twi2, first + " " + last, party, email, website, handle);
                         }
                         i++;
                     } else {
                         if (j == 1) {
+                            handle3 = handle;
                             id3 = id;
+                            party3 = party;
+                            term_end3 = term;
                             showData(R.id.sen3, R.id.par3, R.id.ema3, R.id.sen3image, R.id.web3, R.id.twe3, R.id.box3, R.id.twi3, first + " " + last, party, email, website, handle);
                             String title = state;
                             title += " District ";
@@ -317,10 +345,16 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                             ((TextView) findViewById(R.id.header)).setText(title);
 
                         } else if (j == 2) {
+                            handle4 = handle;
                             id4 = id;
+                            party4 = party;
+                            term_end4 = term;
                             showData(R.id.sen4, R.id.par4, R.id.ema4, R.id.sen4image, R.id.web4, R.id.twe4, R.id.box4, R.id.twi4, first + " " + last, party, email, website, handle);
                         } else if (j == 5) {
+                            handle5 = handle;
                             id5 = id;
+                            party5 = party;
+                            term_end5 = term;
                             showData(R.id.sen5, R.id.par5, R.id.ema5, R.id.sen5image, R.id.web5, R.id.twe5, R.id.box5, R.id.twi5, first + " " + last, party, email, website, handle);
                         }
                         j++;
@@ -332,6 +366,10 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 }
                 if (j <= 2) {
                     ((LinearLayout) findViewById(R.id.box4)).setVisibility(View.GONE);
+                } else {
+                    String title = "Congressmen for ";
+                    title += zip;
+                    ((TextView) findViewById(R.id.header)).setText(title);
                 }
                 reader.endArray();
             } else if (name.equals("count")) {

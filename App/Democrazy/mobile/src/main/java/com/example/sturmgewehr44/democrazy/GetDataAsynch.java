@@ -18,9 +18,8 @@ public class GetDataAsynch  extends AsyncTask<String, Void, InputStream> {
 
     protected InputStream doInBackground(String... zip) {
         System.out.println(zip);
-        if (zip.length == 1) {
             try {
-                URL url = new URL("https://congress.api.sunlightfoundation.com/legislators/locate?zip="+ zip[0] +"&apikey=a96714973c0748038c1b2e35ebdc690a");
+                URL url = new URL(zip[0]);
                 HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
                 return new BufferedInputStream(urlConnection.getInputStream());
             }
@@ -28,18 +27,6 @@ public class GetDataAsynch  extends AsyncTask<String, Void, InputStream> {
                 Log.e("ERROR", e.getMessage(), e);
                 return null;
             }
-        } else {
-            try {
-                URL url = new URL("https://congress.api.sunlightfoundation.com/legislators/locate?latitude=" + zip[0] + "&longitude="+ zip[1] +"&apikey=a96714973c0748038c1b2e35ebdc690a");
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                return new BufferedInputStream(urlConnection.getInputStream());
-            }
-            catch(Exception e) {
-                Log.e("ERROR", e.getMessage(), e);
-                return null;
-            }
-        }
-
     }
 
     protected void onPostExecute(String response) {

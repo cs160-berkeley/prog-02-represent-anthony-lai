@@ -6,11 +6,41 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.JsonReader;
+import android.util.JsonToken;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import com.google.android.gms.location.places.AutocompletePrediction;
+import com.twitter.sdk.android.Twitter;
+import com.twitter.sdk.android.core.AppSession;
+import com.twitter.sdk.android.core.Callback;
+import com.twitter.sdk.android.core.Result;
+import com.twitter.sdk.android.core.TwitterApiClient;
+import com.twitter.sdk.android.core.TwitterAuthConfig;
+import com.twitter.sdk.android.core.TwitterCore;
+import com.twitter.sdk.android.core.TwitterException;
+import com.twitter.sdk.android.core.models.Tweet;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
+
+import io.fabric.sdk.android.Fabric;
 
 public class DetailedViewMobile extends AppCompatActivity {
+
+    private static final String TWITTER_KEY = "If5CSwJEhO6mThm2B9p91Iq0F";
+    private static final String TWITTER_SECRET = "9QlTmQYUuTPiYCl8PZEYXTcMziaEaWHvu1NH0uKN5Zd4G4xu6Z";
+    String bills = "";
+    String handle = "";
+    String bio_id = "";
+    String party = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,76 +53,133 @@ public class DetailedViewMobile extends AppCompatActivity {
         Bundle extras = intent.getExtras();
 
         if (intent != null) {
-            int fall = Integer.parseInt(extras.getString("VALUE"));
-            setInfo(intent, fall);
+            bio_id = extras.getString("VALUE");
+            handle = extras.getString("HANDLE");
+            party = extras.getString("PARTY");
+            ((TextView) findViewById(R.id.term)).setText("Term ends: " + extras.getString("END").substring(0, 4));
+            ((TextView) findViewById(R.id.role)).setText(extras.getString("ROLE"));
+            ((TextView) findViewById(R.id.title)).setText(extras.getString("NAME"));
+            ((TextView) findViewById(R.id.committees)).setText("replace me");
+            pullData(bio_id);
+            findTwitter();
+//            int fall = 1;
+//            setInfo(intent, fall);
         } else {
             System.out.println("scr");
         }
     }
 
-    public void setInfo(Intent intent, int fall) {
-        Bundle extras = intent.getExtras();
-        String senator = "";
-        switch (fall) {
-            case 1:
-                senator = extras.getString("sen1");
-                ((TextView) findViewById(R.id.title)).setText(senator);
-                ((TextView) findViewById(R.id.party)).setText(extras.getString("par1"));
-                ((ImageView) findViewById(R.id.image)).setBackground(getBackgroundColor(extras.getString("par1")));
-                ((ImageView) findViewById(R.id.image)).setImageResource(R.drawable.fdr);
-                break;
-            case 2:
-                senator = extras.getString("sen2");
-                ((TextView) findViewById(R.id.title)).setText(senator);
-                ((TextView) findViewById(R.id.party)).setText(extras.getString("par2"));
-                ((ImageView) findViewById(R.id.image)).setBackground(getBackgroundColor(extras.getString("par2")));
-                ((ImageView) findViewById(R.id.image)).setImageResource(R.drawable.stalin);
-                break;
-            case 3:
-                senator = extras.getString("sen3");
-                ((TextView) findViewById(R.id.title)).setText(senator);
-                ((TextView) findViewById(R.id.party)).setText(extras.getString("par3"));
-                ((ImageView) findViewById(R.id.image)).setBackground(getBackgroundColor(extras.getString("par3")));
-                ((ImageView) findViewById(R.id.image)).setImageResource(R.drawable.wendell);
-                break;
-            case 4:
-                senator = extras.getString("sen4");
-                ((TextView) findViewById(R.id.title)).setText(senator);
-                ((TextView) findViewById(R.id.party)).setText(extras.getString("par4"));
-                ((ImageView) findViewById(R.id.image)).setBackground(getBackgroundColor(extras.getString("par4")));
-                ((ImageView) findViewById(R.id.image)).setImageResource(R.drawable.hitler);
-                break;
-            case 5:
-                senator = extras.getString("sen5");
-                ((TextView) findViewById(R.id.title)).setText(senator);
-                ((TextView) findViewById(R.id.party)).setText(extras.getString("par5"));
-                ((ImageView) findViewById(R.id.image)).setBackground(getBackgroundColor(extras.getString("par5")));
-                ((ImageView) findViewById(R.id.image)).setImageResource(R.drawable.churchill);
-                break;
-
+    public void pullData(String bio_id) {
+        try {
+            InputStream in = new GetDataAsynch().execute("https://congress.api.sunlightfoundation.com/bills?sponsor_id="+ bio_id +"&apikey=a96714973c0748038c1b2e35ebdc690a").get();
+            readJsonStream(in);
+        } catch(java.net.MalformedURLException error) {
+            System.out.println("a");
+        } catch(java.io.IOException error) {
+            System.out.println("b");
+        } catch(java.lang.InterruptedException error) {
+            System.out.println("c");
+        } catch(java.util.concurrent.ExecutionException error) {
+            System.out.println("d");
         }
-        ArrayList<String> moreinfo = getMoreInfo(senator);
-        ((TextView) findViewById(R.id.role)).setText(moreinfo.get(0));
-        ((TextView) findViewById(R.id.term)).setText(moreinfo.get(3));
-        ((TextView) findViewById(R.id.slogan)).setText(moreinfo.get(1));
-        ((TextView) findViewById(R.id.bio)).setText(moreinfo.get(2));
-        ((TextView) findViewById(R.id.committees)).setText(moreinfo.get(4));
-        ((TextView) findViewById(R.id.bills)).setText(moreinfo.get(5));
     }
 
+    public void readJsonStream(InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            readMessagesArray(reader);
+            return;
+        } finally {
+            reader.close();
+        }
+    }
 
-    public ArrayList<String> getMoreInfo(String senator) {
-        ArrayList<String> inf = new ArrayList<String>();
-        inf.add("General Secretary of the Central Committee of the Communist Party of the Soviet Union");
-        inf.add("\"Victory or Gulag, Comrades!\"");
-        inf.add("   Comrade Stalin was one of the first members of the Politiburo, alongside Lenin, [Redacted], [Redacted], [Redacted], [Redacted], [Redacted], and [Redacted]. His glorious leadership during the past few years has seen the enemies of the working classes of Soviet Union purged. Under his leadership, the Soviet State has made an alliance with the German peoples, so that both nations may live in harmony with the bounties from Poland.");
-        inf.add("Term ends:" + "1953");
-        inf.add("1941- : Chairman, State Defense Committee\n" +
-                "1920- : Chairman, Workers' and Peasants' Inspectorate of the Russian SFSR\n" +
-                "1917-1920: People's Commissar, Nationalities of the Russian SFSR\n");
-        inf.add("1942: Order No. 227\n" +
-                "1941: Order No. 270");
-        return inf;
+    public void readMessagesArray(JsonReader reader) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (name.equals("results")) {
+                reader.beginArray();
+                int i = 0;
+                String date = "";
+                String bill = "";
+                while (reader.hasNext()) {
+                    if (i > 5) {
+                        reader.skipValue();
+                    } else {
+                        reader.beginObject();
+                        while(reader.hasNext()) {
+                            String field = reader.nextName();
+                            if (field.equals("official_title")) {
+                                bill = reader.nextString();
+                                System.out.println(bill);
+                            } else if (field.equals("short_title")) {
+                                if (reader.peek() == JsonToken.STRING) {
+                                    bill = reader.nextString();
+                                } else {
+                                    reader.nextNull();
+                                }
+                            } else if (field.equals("introduced_on")) {
+                                date = reader.nextString();
+                                System.out.println(date);
+                            } else {
+                                reader.skipValue();
+                            }
+                        }
+                        bills += date + ": " + bill + "\n";
+                        reader.endObject();
+                        i++;
+                    }
+                }
+                reader.endArray();
+            } else {
+                reader.skipValue();
+            }
+        }
+        ((TextView) findViewById(R.id.bills)).setText(bills);
+        reader.endObject();
+        return;
+    }
+
+    public void findTwitter() {
+        final String twit = handle;
+
+        TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
+        Fabric.with(this, new Twitter(authConfig));
+
+        TwitterCore.getInstance().logInGuest(new Callback<AppSession>() {
+            @Override
+            public void success(Result<AppSession> appSessionResult) {
+                AppSession session = appSessionResult.data;
+                TwitterApiClient twitterApiClient = TwitterCore.getInstance().getApiClient(session);
+                twitterApiClient.getStatusesService().userTimeline(null, twit, 1, null, null, false, false, false, true, new Callback<List<Tweet>>() {
+                    @Override
+                    public void success(Result<List<Tweet>> listResult) {
+                        for(Tweet tweet: listResult.data) {
+                            ((TextView) findViewById(R.id.slogan)).setText("@" + handle);
+                            ((TextView) findViewById(R.id.bio)).setText(tweet.text);
+                            ((TextView) findViewById(R.id.party)).setText(party);
+                            try {
+                                ((ImageView) findViewById(R.id.image)).setImageBitmap(new DownloadImageAsynch().execute(tweet.user.profileImageUrl.replace("_normal", "")).get());
+                                ((ImageView) findViewById(R.id.image)).setBackground(getBackgroundColor(party));
+                            } catch(java.lang.InterruptedException error) {
+                                System.out.println("c");
+                            } catch(java.util.concurrent.ExecutionException error) {
+                                System.out.println("d");
+                            }
+                        }
+                    }
+                    @Override
+                    public void failure(TwitterException e) {
+                        e.printStackTrace();
+                    }
+                });
+            }
+            @Override
+            public void failure(TwitterException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     public Drawable getBackgroundColor(String party) {

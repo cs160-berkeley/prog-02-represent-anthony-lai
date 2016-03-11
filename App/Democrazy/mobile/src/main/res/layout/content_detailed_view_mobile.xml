@@ -84,7 +84,8 @@
             <LinearLayout
                 android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content"
+                android:background="#FFFFFF">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,13 +93,13 @@
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:text="Medium Text"
                     android:id="@+id/slogan"
-                    android:textColor="#FFFFFF"
+                    android:textColor="@color/lightBlack"
                     android:layout_gravity="center_horizontal"
                     android:gravity="center_horizontal" />
 
                 <ScrollView
                     android:layout_width="wrap_content"
-                    android:layout_height="155dp"
+                    android:layout_height="130dp"
                     android:id="@+id/scrollView2" >
 
                     <TextView
@@ -107,10 +108,12 @@
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="Medium Text"
                         android:id="@+id/bio"
-                        android:textColor="#FFFFFF"
-                        android:textSize="10dp"
+                        android:textColor="@color/lighterBlack"
+                        android:textSize="14dp"
                         android:nestedScrollingEnabled="true"
-                        android:gravity="center_vertical" />
+                        android:gravity="center_vertical"
+                        android:paddingLeft="4dp"
+                        android:paddingRight="4dp" />
                 </ScrollView>
 
             </LinearLayout>
@@ -120,13 +123,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Committees"
+            android:text="Active Committees"
             android:id="@+id/textView4"
             android:textColor="#FFFFFF" />
 
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="75dp"
+            android:layout_height="100dp"
             android:id="@+id/scrollView3">
 
             <TextView
@@ -146,13 +153,17 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textAppearance="?android:attr/textAppearanceMedium"
-            android:text="Bills"
+            android:text="Recently Sponsored Bills"
             android:id="@+id/textView5"
             android:textColor="#FFFFFF" />
 
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
+
         <ScrollView
             android:layout_width="fill_parent"
-            android:layout_height="75dp"
+            android:layout_height="100dp"
             android:id="@+id/scrollView4" >
 
             <TextView
