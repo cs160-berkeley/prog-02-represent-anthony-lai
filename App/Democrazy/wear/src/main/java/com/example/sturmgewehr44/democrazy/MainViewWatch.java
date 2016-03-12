@@ -48,6 +48,9 @@ public class MainViewWatch extends AppCompatActivity implements SensorEventListe
                 int cases = 0;
                 if (extras != null) {
                     cases = Integer.parseInt(extras.getString("cases"));
+                    System.out.println(cases);
+                    System.out.println(cases);
+                    System.out.println(cases);
                 } else {
                     System.out.println("first");
                 }
@@ -60,9 +63,20 @@ public class MainViewWatch extends AppCompatActivity implements SensorEventListe
                         data.add(extras.getString("sen" + Integer.toString(i + 1)));
                         data.add(extras.getString("par" + Integer.toString(i + 1)));
                         data.add(Integer.toString(i + 1));
+                        data.add(extras.getString("VALUE" + Integer.toString(i + 1)));
+                        data.add(extras.getString("HANDLE" + Integer.toString(i + 1)));
+                        data.add(extras.getString("ROLE" + Integer.toString(i + 1)));
+                        data.add(extras.getString("END" + Integer.toString(i + 1)));
+                    }
+                    for (String a: data) {
+                        System.out.println(a);
                     }
                     zipcode = extras.getString("ZIPCODE");
                     data.add(zipcode);
+                    data.add(extras.getString("stateshort"));
+                    data.add(extras.getString("county"));
+                    data.add(extras.getString("obama"));
+                    data.add(extras.getString("romney"));
                     gpa.overridePages(cases + 2, data);
                 }
                 pager.setAdapter(gpa);

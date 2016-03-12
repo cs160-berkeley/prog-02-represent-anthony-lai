@@ -18,7 +18,8 @@
         android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:id="@+id/all">
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +27,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:text="Large Text"
             android:id="@+id/title"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:typeface="serif" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -85,21 +87,36 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FFFFFF">
+                android:background="#FFFFFF"
+                android:padding="8dp">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:text="Medium Text"
-                    android:id="@+id/slogan"
-                    android:textColor="@color/lightBlack"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_horizontal" />
+                <LinearLayout
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:id="@+id/imageView5"
+                        android:adjustViewBounds="true"
+                        android:src="@drawable/twitter"
+                        android:scaleType="fitCenter" />
+
+                    <TextView
+                        android:layout_width="fill_parent"
+                        android:layout_height="wrap_content"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:text="Medium Text"
+                        android:id="@+id/slogan"
+                        android:textColor="@color/lightBlack"
+                        android:layout_gravity="center"
+                        android:gravity="center_horizontal" />
+                </LinearLayout>
 
                 <ScrollView
                     android:layout_width="wrap_content"
-                    android:layout_height="130dp"
+                    android:layout_height="112dp"
                     android:id="@+id/scrollView2" >
 
                     <TextView
@@ -111,9 +128,7 @@
                         android:textColor="@color/lighterBlack"
                         android:textSize="14dp"
                         android:nestedScrollingEnabled="true"
-                        android:gravity="center_vertical"
-                        android:paddingLeft="4dp"
-                        android:paddingRight="4dp" />
+                        android:gravity="center_vertical" />
                 </ScrollView>
 
             </LinearLayout>
@@ -125,7 +140,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Active Committees"
             android:id="@+id/textView4"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:typeface="serif" />
 
         <Space
             android:layout_width="fill_parent"
@@ -140,14 +156,19 @@
                 android:layout_width="fill_parent"
                 android:layout_height="100dp"
                 android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small TextSmall TextSmall TextSmall TextSmaextSeinemefdasfdsafdsaSmall TextSmall TextSmall TextSmall TextSmaextSeinemefdasfdsafdsaSmall TextSmall TextSmall TextSmall TextSmaextSeinemefdasfdsafdsaSmall TextSmall TextSmall TextSmall TextSmaextSeinemefdasfdsafdsa"
+                android:text=""
                 android:id="@+id/committees"
                 android:textColor="#FFFFFF"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:nestedScrollingEnabled="true"
+                android:lineSpacingExtra="5dp"
                 android:textSize="10dp" />
         </ScrollView>
+
+        <Space
+            android:layout_width="fill_parent"
+            android:layout_height="10dp" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -155,7 +176,8 @@
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:text="Recently Sponsored Bills"
             android:id="@+id/textView5"
-            android:textColor="#FFFFFF" />
+            android:textColor="#FFFFFF"
+            android:typeface="serif" />
 
         <Space
             android:layout_width="fill_parent"
@@ -176,8 +198,20 @@
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:nestedScrollingEnabled="true"
+                android:lineSpacingExtra="5dp"
                 android:textSize="10dp" />
         </ScrollView>
 
     </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Loading..."
+        android:id="@+id/b"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:layout_centerInParent="true"
+        android:typeface="serif" />
 </RelativeLayout>

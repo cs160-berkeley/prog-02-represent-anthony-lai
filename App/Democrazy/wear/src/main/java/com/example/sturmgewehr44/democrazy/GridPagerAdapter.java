@@ -37,43 +37,59 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
         String Partei = "partie";
         int value;
         int zip;
+        String romney;
+        String obama;
+        String county;
+        String stateshort;
+        String id;
+        String handle;
+        String end;
+        String role;
 
-        public Page(int titleRes, int textRes, boolean expansion) {
-            this(titleRes, textRes, 0);
-            this.expansionEnabled = expansion;
-        }
+//        public Page(int titleRes, int textRes, boolean expansion) {
+//            this(titleRes, textRes, 0);
+//            this.expansionEnabled = expansion;
+//        }
+//
+//        public Page(int titleRes, int textRes, boolean expansion, float expansionFactor) {
+//            this(titleRes, textRes, 0);
+//            this.expansionEnabled = expansion;
+//            this.expansionFactor = expansionFactor;
+//        }=
 
-        public Page(int titleRes, int textRes, boolean expansion, float expansionFactor) {
-            this(titleRes, textRes, 0);
-            this.expansionEnabled = expansion;
-            this.expansionFactor = expansionFactor;
-        }
+//        public Page(int titleRes, int textRes, int iconRes) {
+//            this.titleRes = titleRes;
+//            this.textRes = textRes;
+//            this.iconRes = iconRes;
+//        }
 
-        public Page(int titleRes, int textRes, int iconRes) {
-            this.titleRes = titleRes;
-            this.textRes = textRes;
-            this.iconRes = iconRes;
-        }
+//        public Page(int titleRes, int textRes, int iconRes, int gravity) {
+//            this.titleRes = titleRes;
+//            this.textRes = textRes;
+//            this.iconRes = iconRes;
+//            this.cardGravity = gravity;
+//        }
 
-        public Page(int titleRes, int textRes, int iconRes, int gravity) {
-            this.titleRes = titleRes;
-            this.textRes = textRes;
-            this.iconRes = iconRes;
-            this.cardGravity = gravity;
-        }
-
-        public Page(String sen, String par, String val, String zip) {
-            this(0, 0, 0);
+        public Page(String sen, String par, String val, String zip, String r, String o, String c, String ss, String id, String handle, String role, String end) {
+//            this(0, 0, 0);
             this.senator = sen;
             this.Partei = par;
             this.value = Integer.parseInt(val);
             this.zip = Integer.parseInt(zip);
+            this.romney = r;
+            this.obama = o;
+            this.county = c;
+            this.stateshort = ss;
+            this.id = id;
+            this.handle = handle;
+            this.end = end;
+            this.role = role;
         }
     }
 
     private Page[][] PAGES = {
             {
-                    new Page("Hitler", "National Socialist Party", "0", "11111"),
+                    new Page("Hitler", "National Socialist Party", "0", "11111", "111", "-11", "Barbarossas", "DD", "", "", "", ""),
             },};
 //
 //            {
@@ -92,11 +108,15 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
 //    };
 
     public void overridePages(int cases, ArrayList<String> info) {
-        String zipcode = info.get(info.size()-1);
+        String romney = info.get(info.size()-1);
+        String obama = info.get(info.size()-2);
+        String county = info.get(info.size()-3);
+        String stateshort = info.get(info.size()-4);
+        String zipcode = info.get(info.size()-5);
         Page[][] Present = new Page[cases][2];
         for (int i = 0; i < cases; i++) {
-            Present[i][0] = new Page(info.get(i * 3), info.get(i * 3 + 1), info.get(i * 3 + 2), zipcode);
-            Present[i][1] = new Page(info.get(i * 3), info.get(i * 3 + 1), info.get(i * 3 + 2), zipcode);
+            Present[i][0] = new Page(info.get(i * 7), info.get(i * 7 + 1), info.get(i * 7 + 2), zipcode, romney, obama, county, stateshort, info.get(i * 7 + 3), info.get(i * 7 + 4), info.get(i * 7 + 5), info.get(i * 7 + 6));
+            Present[i][1] = new Page(info.get(i * 7), info.get(i * 7 + 1), info.get(i * 7 + 2), zipcode, romney, obama, county, stateshort, info.get(i * 7 + 3), info.get(i * 7 + 4), info.get(i * 7 + 5), info.get(i * 7 + 6));
         }
         PAGES = Present;
     }
@@ -108,19 +128,23 @@ public class GridPagerAdapter extends FragmentGridPagerAdapter {
         System.out.println(col);
         String sen = page.senator;
         String par = page.Partei;
+        String romney = page.romney;
+        String obama = page.obama;
+        String county = page.county;
+        String stateshort = page.stateshort;
+        String value = page.id;
+        String handle = page.handle;
+        String end = page.end;
+        String role = page.role;
         Fragment fragment;
         if (page.value == 0) {
-            fragment = FaceFragment.newInstance(sen, par, getBackgroundInt(par), 0);
+            fragment = FaceFragment.newInstance(sen, par, getBackgroundInt(par), 0, value, handle, end, role);
             return fragment;
         }
         if (col == 0) {
-            fragment = FaceFragment.newInstance(sen, par, getBackgroundInt(par), row + 1);
+            fragment = FaceFragment.newInstance(sen, par, getBackgroundInt(par), row + 1, value, handle, end, role);
         } else {
-            if (page.zip % 2 == 0) {
-                fragment = VoteFragment.newInstance("CA", "Barbarossa County", "Obama: 101% of votes", "Romney: -1% of votes");
-            } else {
-                fragment = VoteFragment.newInstance("NV", "Barbarossa County", "Obama: 101% of votes", "Romney: -1% of votes");
-            }
+            fragment = VoteFragment.newInstance(stateshort, county, "Obama: "+ obama +"% of votes", "Romney: " + romney + "% of votes");
         }
         return fragment;
     }

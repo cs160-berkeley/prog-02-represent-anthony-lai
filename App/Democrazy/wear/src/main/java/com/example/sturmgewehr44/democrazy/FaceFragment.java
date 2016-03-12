@@ -30,12 +30,21 @@ public class FaceFragment extends Fragment {
     private static final String ARG_PARAM2 = "param2";
     private static final String ARG_PARAM3 = "param3";
     private static final String ARG_PARAM4 = "param4";
+    private static final String ARG_PARAM5 = "param5"; // bioguide id VALUE
+    private static final String ARG_PARAM6 = "param6"; // twitter HANDLE
+    private static final String ARG_PARAM7 = "param7"; // term END
+    private static final String ARG_PARAM8 = "param8"; // house or senate ROLE
 
     // TODO: Rename and change types of parameters
     private String mParam1 = "fail";
     private String mParam2;
     private int mParam3;
     private int mParam4;
+    private String mParam5;
+    private String mParam6;
+    private String mParam7;
+    private String mParam8;
+
 
     private OnFragmentInteractionListener mListener;
 
@@ -45,14 +54,17 @@ public class FaceFragment extends Fragment {
 
 
     // TODO: Rename and change types and number of parameters
-    public static FaceFragment newInstance(String param1, String param2, int color, int order) {
+    public static FaceFragment newInstance(String param1, String param2, int color, int order, String value, String handle, String end, String role) {
         FaceFragment fragment = new FaceFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
         args.putInt(ARG_PARAM3, color);
         args.putInt(ARG_PARAM4, order);
-        System.out.println(param1 + Integer.toString(order) + param2);
+        args.putString(ARG_PARAM5, value);
+        args.putString(ARG_PARAM6, handle);
+        args.putString(ARG_PARAM7, end);
+        args.putString(ARG_PARAM8, role);
         fragment.setArguments(args);
         return fragment;
     }
@@ -65,6 +77,10 @@ public class FaceFragment extends Fragment {
             mParam2 = getArguments().getString(ARG_PARAM2);
             mParam3 = getArguments().getInt(ARG_PARAM3);
             mParam4 = getArguments().getInt(ARG_PARAM4);
+            mParam5 = getArguments().getString(ARG_PARAM5);
+            mParam6 = getArguments().getString(ARG_PARAM6);
+            mParam7 = getArguments().getString(ARG_PARAM7);
+            mParam8 = getArguments().getString(ARG_PARAM8);
         }
     }
 
@@ -109,9 +125,12 @@ public class FaceFragment extends Fragment {
                     }
                     Intent sendIntent = new Intent(getActivity().getBaseContext(), WatchToPhoneService.class);
                     sendIntent.putExtra("/CASE", "FACE");
-                    sendIntent.putExtra("VALUE", Integer.toString(mParam4));
+                    sendIntent.putExtra("VALUE", mParam5);
                     sendIntent.putExtra("sen", mParam1);
                     sendIntent.putExtra("par", mParam2);
+                    sendIntent.putExtra("HANDLE", mParam6);
+                    sendIntent.putExtra("END", mParam7);
+                    sendIntent.putExtra("ROLE", mParam8);
                     getActivity().startService(sendIntent);
                 }
             });

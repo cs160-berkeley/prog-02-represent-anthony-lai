@@ -59,10 +59,12 @@ public class WatchToPhoneService extends Service {
                 if (extras.getString("/CASE").equals("FACE")) {
                     sendMessage("/CASE", "FACE");
                     SystemClock.sleep(500);
-                    String value = extras.getString("VALUE");
-                    sendMessage("VALUE", value);
-                    sendMessage("sen" + value, extras.getString("sen"));
-                    sendMessage("par" + value, extras.getString("par"));
+                    sendMessage("NAME", extras.getString("sen"));
+                    sendMessage("PARTY", extras.getString("par"));
+                    sendMessage("VALUE", extras.getString("VALUE"));
+                    sendMessage("END", extras.getString("END"));
+                    sendMessage("ROLE", extras.getString("ROLE"));
+                    sendMessage("HANDLE", extras.getString("HANDLE"));
                     SystemClock.sleep(500);
                     sendMessage("/START", "START");
                 } else {

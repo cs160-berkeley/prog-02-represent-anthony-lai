@@ -9,12 +9,9 @@ import android.support.v7.widget.Toolbar;
 import android.util.JsonReader;
 import android.util.JsonToken;
 import android.view.View;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-
-import com.google.android.gms.location.places.AutocompletePrediction;
 import com.twitter.sdk.android.Twitter;
 import com.twitter.sdk.android.core.AppSession;
 import com.twitter.sdk.android.core.Callback;
@@ -24,11 +21,9 @@ import com.twitter.sdk.android.core.TwitterAuthConfig;
 import com.twitter.sdk.android.core.TwitterCore;
 import com.twitter.sdk.android.core.TwitterException;
 import com.twitter.sdk.android.core.models.Tweet;
-
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.util.ArrayList;
 import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
@@ -41,6 +36,7 @@ public class DetailedViewMobile extends AppCompatActivity {
     String handle = "";
     String bio_id = "";
     String party = "";
+    String committees = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,23 +49,81 @@ public class DetailedViewMobile extends AppCompatActivity {
         Bundle extras = intent.getExtras();
 
         if (intent != null) {
+            ((LinearLayout) findViewById(R.id.all)).setVisibility(View.GONE);
             bio_id = extras.getString("VALUE");
             handle = extras.getString("HANDLE");
             party = extras.getString("PARTY");
             ((TextView) findViewById(R.id.term)).setText("Term ends: " + extras.getString("END").substring(0, 4));
             ((TextView) findViewById(R.id.role)).setText(extras.getString("ROLE"));
             ((TextView) findViewById(R.id.title)).setText(extras.getString("NAME"));
-            ((TextView) findViewById(R.id.committees)).setText("replace me");
-            pullData(bio_id);
+            pullDataBills(bio_id);
+            pullDataCommittee(bio_id);
             findTwitter();
-//            int fall = 1;
-//            setInfo(intent, fall);
         } else {
             System.out.println("scr");
         }
     }
 
-    public void pullData(String bio_id) {
+    public void pullDataCommittee(String bio_id) {
+        try {
+            InputStream in = new GetDataAsynch().execute("https://congress.api.sunlightfoundation.com/committees?member_ids="+ bio_id + "&apikey=a96714973c0748038c1b2e35ebdc690a").get();
+            readJsonStream2(in);
+        } catch(java.net.MalformedURLException error) {
+            System.out.println("a");
+        } catch(java.io.IOException error) {
+            System.out.println("b");
+        } catch(java.lang.InterruptedException error) {
+            System.out.println("c");
+        } catch(java.util.concurrent.ExecutionException error) {
+            System.out.println("d");
+        }
+    }
+
+    public void readJsonStream2(InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            readcom(reader);
+            return;
+        } finally {
+            reader.close();
+        }
+    }
+
+    public void readcom(JsonReader reader) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            if (name.equals("results")) {
+                reader.beginArray();
+                String committee = "";
+                while (reader.hasNext()) {
+                    reader.beginObject();
+                    while(reader.hasNext()) {
+                        String field = reader.nextName();
+                        if (field.equals("name")) {
+                            committee = reader.nextString();
+                        } else {
+                            reader.skipValue();
+                        }
+                    }
+                    committees += committee + "\n";
+                    reader.endObject();
+                }
+                reader.endArray();
+            } else {
+                reader.skipValue();
+            }
+        }
+        if (committees.equals("")) {
+            ((TextView) findViewById(R.id.committees)).setText("This "+ ((TextView) findViewById(R.id.role)).getText() + " is not currently active on any committee.");
+        } else {
+            ((TextView) findViewById(R.id.committees)).setText(committees.substring(0, committees.length() - 1));
+        }
+        reader.endObject();
+        return;
+    }
+
+    public void pullDataBills(String bio_id) {
         try {
             InputStream in = new GetDataAsynch().execute("https://congress.api.sunlightfoundation.com/bills?sponsor_id="+ bio_id +"&apikey=a96714973c0748038c1b2e35ebdc690a").get();
             readJsonStream(in);
@@ -87,14 +141,14 @@ public class DetailedViewMobile extends AppCompatActivity {
     public void readJsonStream(InputStream in) throws IOException {
         JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
         try {
-            readMessagesArray(reader);
+            read(reader);
             return;
         } finally {
             reader.close();
         }
     }
 
-    public void readMessagesArray(JsonReader reader) throws IOException {
+    public void read(JsonReader reader) throws IOException {
         reader.beginObject();
         while (reader.hasNext()) {
             String name = reader.nextName();
@@ -112,7 +166,6 @@ public class DetailedViewMobile extends AppCompatActivity {
                             String field = reader.nextName();
                             if (field.equals("official_title")) {
                                 bill = reader.nextString();
-                                System.out.println(bill);
                             } else if (field.equals("short_title")) {
                                 if (reader.peek() == JsonToken.STRING) {
                                     bill = reader.nextString();
@@ -121,7 +174,6 @@ public class DetailedViewMobile extends AppCompatActivity {
                                 }
                             } else if (field.equals("introduced_on")) {
                                 date = reader.nextString();
-                                System.out.println(date);
                             } else {
                                 reader.skipValue();
                             }
@@ -136,17 +188,19 @@ public class DetailedViewMobile extends AppCompatActivity {
                 reader.skipValue();
             }
         }
-        ((TextView) findViewById(R.id.bills)).setText(bills);
+        if (bills.equals("")) {
+            ((TextView) findViewById(R.id.bills)).setText("This "+ ((TextView) findViewById(R.id.role)).getText() + " has not sponsored any bills.");
+        } else {
+            ((TextView) findViewById(R.id.bills)).setText(bills.substring(0, bills.length() - 1));
+        }
         reader.endObject();
         return;
     }
 
     public void findTwitter() {
         final String twit = handle;
-
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
-
         TwitterCore.getInstance().logInGuest(new Callback<AppSession>() {
             @Override
             public void success(Result<AppSession> appSessionResult) {
@@ -155,18 +209,20 @@ public class DetailedViewMobile extends AppCompatActivity {
                 twitterApiClient.getStatusesService().userTimeline(null, twit, 1, null, null, false, false, false, true, new Callback<List<Tweet>>() {
                     @Override
                     public void success(Result<List<Tweet>> listResult) {
-                        for(Tweet tweet: listResult.data) {
+                        for (Tweet tweet : listResult.data) {
                             ((TextView) findViewById(R.id.slogan)).setText("@" + handle);
                             ((TextView) findViewById(R.id.bio)).setText(tweet.text);
                             ((TextView) findViewById(R.id.party)).setText(party);
                             try {
                                 ((ImageView) findViewById(R.id.image)).setImageBitmap(new DownloadImageAsynch().execute(tweet.user.profileImageUrl.replace("_normal", "")).get());
                                 ((ImageView) findViewById(R.id.image)).setBackground(getBackgroundColor(party));
-                            } catch(java.lang.InterruptedException error) {
+                            } catch (java.lang.InterruptedException error) {
                                 System.out.println("c");
-                            } catch(java.util.concurrent.ExecutionException error) {
+                            } catch (java.util.concurrent.ExecutionException error) {
                                 System.out.println("d");
                             }
+                            ((LinearLayout) findViewById(R.id.all)).setVisibility(View.VISIBLE);
+                            ((TextView) findViewById(R.id.b)).setVisibility(View.GONE);
                         }
                     }
                     @Override

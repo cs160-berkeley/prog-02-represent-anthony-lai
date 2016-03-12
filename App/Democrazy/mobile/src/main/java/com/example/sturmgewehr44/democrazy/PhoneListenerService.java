@@ -20,6 +20,15 @@ public class PhoneListenerService extends WearableListenerService {
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
+
+//        bio_id = extras.getString("VALUE");
+//        handle = extras.getString("HANDLE");
+//        party = extras.getString("PARTY");
+//        ((TextView) findViewById(R.id.term)).setText("Term ends: " + extras.getString("END").substring(0, 4));
+//        ((TextView) findViewById(R.id.role)).setText(extras.getString("ROLE"));
+//        ((TextView) findViewById(R.id.title)).setText(extras.getString("NAME"));
+//
+
         Log.d("T", "in PhoneListenerService, got: " + messageEvent.getPath());
         if(messageEvent.getPath().equalsIgnoreCase( START )) {
             Intent intent;
@@ -66,7 +75,7 @@ public class PhoneListenerService extends WearableListenerService {
                 for (String key: builds.keySet()) {
                     intent.putExtra(key, builds.get(key));
                 }
-                intent.putExtra("cases", Integer.toString(builds.size() / 2 - 2));
+//                intent.putExtra("cases", Integer.toString(builds.size() / 2 - 2));
                 startActivity(intent);
             }
 

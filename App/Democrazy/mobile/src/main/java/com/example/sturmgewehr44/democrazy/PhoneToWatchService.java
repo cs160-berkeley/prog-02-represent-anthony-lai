@@ -46,17 +46,51 @@ public class PhoneToWatchService extends Service {
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         final Bundle extras = intent.getExtras();
-        final String fall = extras.getString("cases");
+        final String fall = extras.getString("cases"); //used to be from 1 to 3
         final int num = Integer.parseInt(fall);
         new Thread(new Runnable() {
             @Override
             public void run() {
                 mApiClient.connect();
                 sendMessage("/case", fall);
-                sendMessage("ZIPCODE", extras.getString("ZIPCODE"));
+//                sendMessage("ZIPCODE", extras.getString("ZIPCODE"));
+                sendMessage("ZIPCODE", "00000");
+
+                sendMessage("stateshort", extras.getString("stateshort"));
+                sendMessage("county", extras.getString("county"));
+                sendMessage("obama", extras.getString("obama"));
+                sendMessage("romney", extras.getString("romney"));
+
                 for (int indice = 0;  indice < num + 2; indice++) {
+//                    System.out.println(indice + 1);
+//                    String a = extras.getString("sen" + Integer.toString(indice + 1));
+//                    System.out.println(a);
+//                    byte[] a1 = a.getBytes();
+//                    String b = extras.getString("par" + Integer.toString(indice + 1));
+//                    System.out.println(b);
+//                    byte[] b1 = b.getBytes();
+//                    String c = extras.getString("VALUE" + Integer.toString(indice + 1));
+//                    System.out.println(c);
+//                    byte[] c1 = c.getBytes();
+//                    String d = extras.getString("HANDLE" + Integer.toString(indice + 1));
+//                    System.out.println(d);
+//                    byte[] d1 = d.getBytes();
+//                    String e = extras.getString("ROLE" + Integer.toString(indice + 1));
+//                    System.out.println(e);
+//                    byte[] e1 = e.getBytes();
+//                    String f = extras.getString("END" + Integer.toString(indice + 1));
+//                    System.out.println(f);
+//                    byte[] f1 = f.getBytes();
                     sendMessage("sen" + Integer.toString(indice + 1), extras.getString("sen" + Integer.toString(indice + 1)));
                     sendMessage("par" + Integer.toString(indice + 1), extras.getString("par" + Integer.toString(indice + 1)));
+                    sendMessage("VALUE" + Integer.toString(indice + 1), extras.getString("VALUE" + Integer.toString(indice + 1)));
+                    sendMessage("HANDLE" + Integer.toString(indice + 1), extras.getString("HANDLE" + Integer.toString(indice + 1)));
+                    sendMessage("ROLE" + Integer.toString(indice + 1), extras.getString("ROLE" + Integer.toString(indice + 1)));
+                    sendMessage("END" + Integer.toString(indice + 1), extras.getString("END" + Integer.toString(indice + 1)));
+//                    sendMessage("VALUE" + Integer.toString(indice + 1), "");
+//                    sendMessage("HANDLE" + Integer.toString(indice + 1), "");
+//                    sendMessage("ROLE" + Integer.toString(indice + 1), "");
+//                    sendMessage("END" + Integer.toString(indice + 1), "");
                 }
                 SystemClock.sleep(500);
                 sendMessage("/START", "START");

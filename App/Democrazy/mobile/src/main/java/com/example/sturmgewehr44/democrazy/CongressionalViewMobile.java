@@ -86,6 +86,11 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
     private String term_end4 ="";
     private String term_end5 ="";
     private String zip = "";
+    private int finished = 0;
+    private String county = "";
+    private String stateshort = "";
+    private Double obamavote;
+    private Double romneyvote;
 
 
     @Override
@@ -98,12 +103,16 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         Bundle extras = intent.getExtras();
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+        ((LinearLayout) findViewById(R.id.all)).setVisibility(View.GONE);
+
+//        Intent watchIntent = new Intent(getParent().getBaseContext(), PhoneToWatchService.class);
 
         if (extras != null) {
             cases = Integer.parseInt(extras.getString("cases"));
             if (extras.getString("TYPE").equals("ZIP")) {
                 zip = extras.getString("ZIPCODE");
                 pullData(zip);
+                googleGeo(zip);
             } else {
                 cases = 1;
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
@@ -216,6 +225,36 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
 
     }
 
+    public void googleGeo() {
+        try {
+            InputStream in = new GetDataAsynch().execute("https://maps.googleapis.com/maps/api/geocode/json?&latlng="+ Double.toString(latitude) + "," + Double.toString(longitude) + "&key=AIzaSyBefULUFma1aPV2dVtpOJ9cX85WCcGFDY4").get();
+            readJsonStreamGoogle(in);
+        } catch(java.net.MalformedURLException error) {
+            System.out.println("a");
+        } catch(java.io.IOException error) {
+            System.out.println("b");
+        } catch(java.lang.InterruptedException error) {
+            System.out.println("c");
+        } catch(java.util.concurrent.ExecutionException error) {
+            System.out.println("d");
+        }
+    }
+
+    public void googleGeo(String zip) {
+        try {
+            InputStream in = new GetDataAsynch().execute("https://maps.googleapis.com/maps/api/geocode/json?address=" + zip + "&key=AIzaSyBefULUFma1aPV2dVtpOJ9cX85WCcGFDY4").get();
+            readJsonStreamGoogle(in);
+        } catch(java.net.MalformedURLException error) {
+            System.out.println("a");
+        } catch(java.io.IOException error) {
+            System.out.println("b");
+        } catch(java.lang.InterruptedException error) {
+            System.out.println("c");
+        } catch(java.util.concurrent.ExecutionException error) {
+            System.out.println("d");
+        }
+    }
+
     public void pullData(String zipcode) {
         try {
             InputStream in = new GetDataAsynch().execute("https://congress.api.sunlightfoundation.com/legislators/locate?zip="+ zipcode +"&apikey=a96714973c0748038c1b2e35ebdc690a").get();
@@ -256,8 +295,19 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         }
     }
 
+    public void readJsonStreamGoogle(InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            readMessagesArrayGoogle(reader);
+            return;
+        } finally {
+            reader.close();
+        }
+    }
+
     public void readMessagesArray(JsonReader reader) throws IOException {
         reader.beginObject();
+        Intent watch = new Intent(getBaseContext(), PhoneToWatchService.class);
         while (reader.hasNext()) {
             String name = reader.nextName();
             System.out.println(name);
@@ -302,6 +352,8 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                             website = reader.nextString();
                         } else if (field.equals("twitter_id")) {
                             handle = reader.nextString();
+                        } else if (field.equals("state")) {
+                            stateshort = reader.nextString();
                         } else if (field.equals("state_name")) {
                             state = reader.nextString();
                         } else if (field.equals("district")) {
@@ -323,13 +375,13 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                             id1 = id;
                             party1 = party;
                             term_end1 = term;
-                            showData(R.id.sen1, R.id.par1, R.id.ema1, R.id.sen1Image, R.id.web1, R.id.twe1, R.id.box1, R.id.twi1, first + " " + last, party, email, website, handle);
+                            showData(R.id.sen1, R.id.par1, R.id.ema1, R.id.sen1Image, R.id.web1, R.id.twe1, R.id.box1, R.id.twi1, first + " " + last, party, email, website, handle, 1, id, term, watch);
                         } else {
                             handle2 = handle;
                             id2 = id;
                             party2 = party;
                             term_end2 = term;
-                            showData(R.id.sen2, R.id.par2, R.id.ema2, R.id.sen2image, R.id.web2, R.id.twe2, R.id.box2, R.id.twi2, first + " " + last, party, email, website, handle);
+                            showData(R.id.sen2, R.id.par2, R.id.ema2, R.id.sen2image, R.id.web2, R.id.twe2, R.id.box2, R.id.twi2, first + " " + last, party, email, website, handle, 2, id, term, watch);
                         }
                         i++;
                     } else {
@@ -338,7 +390,7 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                             id3 = id;
                             party3 = party;
                             term_end3 = term;
-                            showData(R.id.sen3, R.id.par3, R.id.ema3, R.id.sen3image, R.id.web3, R.id.twe3, R.id.box3, R.id.twi3, first + " " + last, party, email, website, handle);
+                            showData(R.id.sen3, R.id.par3, R.id.ema3, R.id.sen3image, R.id.web3, R.id.twe3, R.id.box3, R.id.twi3, first + " " + last, party, email, website, handle, 3, id, term, watch);
                             String title = state;
                             title += " District ";
                             title += district;
@@ -349,17 +401,16 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                             id4 = id;
                             party4 = party;
                             term_end4 = term;
-                            showData(R.id.sen4, R.id.par4, R.id.ema4, R.id.sen4image, R.id.web4, R.id.twe4, R.id.box4, R.id.twi4, first + " " + last, party, email, website, handle);
-                        } else if (j == 5) {
+                            showData(R.id.sen4, R.id.par4, R.id.ema4, R.id.sen4image, R.id.web4, R.id.twe4, R.id.box4, R.id.twi4, first + " " + last, party, email, website, handle, 4, id, term, watch);
+                        } else if (j == 3) {
                             handle5 = handle;
                             id5 = id;
                             party5 = party;
                             term_end5 = term;
-                            showData(R.id.sen5, R.id.par5, R.id.ema5, R.id.sen5image, R.id.web5, R.id.twe5, R.id.box5, R.id.twi5, first + " " + last, party, email, website, handle);
+                            showData(R.id.sen5, R.id.par5, R.id.ema5, R.id.sen5image, R.id.web5, R.id.twe5, R.id.box5, R.id.twi5, first + " " + last, party, email, website, handle, 5, id, term, watch);
                         }
                         j++;
                     }
-
                 }
                 if (j <= 3) {
                     ((LinearLayout) findViewById(R.id.box5)).setVisibility(View.GONE);
@@ -388,7 +439,72 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
         return;
     }
 
-    public void showData(int sen, int par, int ema, final int image, int web, int twe, int box, final int twi, String name, String party, String email, String website, String handle) {
+    public void readMessagesArrayGoogle(JsonReader reader) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            System.out.println(name);
+            if (name.equals("results")) {
+                reader.beginArray();
+                county = "";
+                String types = "";
+                while (reader.hasNext()) {
+                    reader.beginObject();
+                    while(reader.hasNext()) {
+                        String field = reader.nextName();
+                        if (field.equals("address_components")) {
+                            reader.beginArray();
+                            while (reader.hasNext()) {
+                                reader.beginObject();
+                                while (reader.hasNext()) {
+                                    String field2 = reader.nextName();
+                                    if (field2.equals("long_name") && reader.peek() == JsonToken.STRING) {
+                                        county = reader.nextString();
+                                    } else if (field2.equals("short_name") && reader.peek() == JsonToken.STRING) {
+                                        county = reader.nextString();
+                                    } else if (field2.equals("types")) {
+                                        reader.beginArray();
+                                        while (reader.hasNext()) {
+                                            String type = reader.nextString();
+                                            if (type.equals("administrative_area_level_2")) {
+                                                System.out.println(county);
+                                                reader.close();
+                                                getVote();
+                                                return;
+                                            }
+                                        }
+                                        reader.endArray();
+                                    } else {
+                                        reader.skipValue();
+                                    }
+                                }
+                                reader.endObject();
+                            }
+                            reader.endArray();
+                        } else {
+                            reader.skipValue();
+                        }
+                    }
+                }
+                reader.endArray();
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
+        return;
+    }
+
+    public void showData(int sen, int par, int ema, final int image, int web, int twe, int box, final int twi, String name, String party, String email, String website, String handle, int pos, String bio_id, String term, Intent watchIntent) {
+
+        String k = Integer.toString(pos);
+        watchIntent.putExtra("VALUE" + k, bio_id);
+        watchIntent.putExtra("HANDLE" + k, handle);
+        watchIntent.putExtra("par" + k, party);
+        watchIntent.putExtra("ROLE" + k, "Senator");
+        watchIntent.putExtra("END" + k, term);
+        watchIntent.putExtra("sen" + k, name);
+
         ((TextView) findViewById(sen)).setText(name);
         ((TextView) findViewById(par)).setText(party);
         ((TextView) findViewById(ema)).setText(email);
@@ -399,6 +515,8 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
 
         TwitterAuthConfig authConfig = new TwitterAuthConfig(TWITTER_KEY, TWITTER_SECRET);
         Fabric.with(this, new Twitter(authConfig));
+
+        final Intent cIntent = watchIntent;
 
         TwitterCore.getInstance().logInGuest(new Callback<AppSession>() {
             @Override
@@ -417,6 +535,18 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                             } catch(java.util.concurrent.ExecutionException error) {
                                 System.out.println("d");
                             }
+                            finished += 1;
+                            System.out.println(finished);
+                            if (finished == cases) {
+                                ((LinearLayout) findViewById(R.id.all)).setVisibility(View.VISIBLE);
+                                ((LinearLayout) findViewById(R.id.b)).setVisibility(View.GONE);
+                                cIntent.putExtra("stateshort", stateshort);
+                                cIntent.putExtra("county", county);
+                                cIntent.putExtra("obama", Double.toString(obamavote));
+                                cIntent.putExtra("romney", Double.toString(romneyvote));
+                                cIntent.putExtra("cases", Integer.toString(cases - 2));
+                                startService(cIntent);
+                            }
                         }
                     }
                     @Override
@@ -430,6 +560,89 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
                 e.printStackTrace();
             }
         });
+    }
+
+    public void getVote() {
+        try {
+            InputStream in = new GetDataAsynch().execute("https://raw.githubusercontent.com/cs160-sp16/voting-data/master/election-county-2012.json").get();
+            readJsonStreamVote(in);
+        } catch(java.net.MalformedURLException error) {
+            System.out.println("a");
+        } catch(java.io.IOException error) {
+            System.out.println("b");
+        } catch(java.lang.InterruptedException error) {
+            System.out.println("c");
+        } catch(java.util.concurrent.ExecutionException error) {
+            System.out.println("d");
+        }
+    }
+
+    public void readJsonStreamVote(InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            readMessagesArrayVote(reader);
+            return;
+        } finally {
+            reader.close();
+        }
+    }
+
+    public void readMessagesArrayVote(JsonReader reader) throws IOException {
+        boolean found = false;
+        reader.beginArray();
+        while (reader.hasNext()) {
+            reader.beginObject();
+            while (reader.hasNext()) {
+                String field = reader.nextName();
+                if (field.equals("state-postal")) {
+                    if (!reader.nextString().equals(stateshort)) {
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        break;
+                    }
+                } else if (field.equals("county-name")) {
+                    String mycounty = reader.nextString() + " County";
+                    if (mycounty.equals(county)) {
+                        found = true;
+                    } else {
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        reader.skipValue();
+                        break;
+                    }
+                } else if (field.equals("obama-percentage")) {
+                    obamavote = reader.nextDouble();
+                } else if (field.equals("romney-percentage")) {
+                    romneyvote = reader.nextDouble();
+                } else {
+                    reader.skipValue();
+                }
+            }
+            reader.endObject();
+            if (found) {
+                reader.close();
+                return;
+            }
+        }
+        reader.endArray();
+        return;
     }
 
     public Drawable getBackgroundColor(String party) {
@@ -451,6 +664,7 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
             System.out.println(latitude);
             System.out.println(longitude);
             pullData();
+            googleGeo();
         }
     }
 
