@@ -108,13 +108,12 @@ public class CongressionalViewMobile extends AppCompatActivity implements Locati
 //        Intent watchIntent = new Intent(getParent().getBaseContext(), PhoneToWatchService.class);
 
         if (extras != null) {
-            cases = Integer.parseInt(extras.getString("cases"));
             if (extras.getString("TYPE").equals("ZIP")) {
                 zip = extras.getString("ZIPCODE");
                 pullData(zip);
                 googleGeo(zip);
             } else {
-                cases = 1;
+                cases = 3;
                 mLocationManager = (LocationManager) getSystemService(LOCATION_SERVICE);
                 mLocationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
             }

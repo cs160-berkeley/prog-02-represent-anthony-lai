@@ -100,16 +100,6 @@ public class MainViewWatch extends AppCompatActivity implements SensorEventListe
                 if (zipcode != null) {
                     Intent shake = new Intent(getBaseContext(), WatchToPhoneService.class);
                     shake.putExtra("/CASE", "SHAKE");
-                    int zip = Integer.parseInt(zipcode);
-                    Random rand = new Random();
-                    int value = rand.nextInt(99999);
-                    if ((zip % 2) == (value % 2)) {
-                        zip = value + 1;
-                    } else {
-                        zip = value;
-                    }
-                    zipcode = Integer.toString(zip);
-                    shake.putExtra("ZIPCODE", zipcode);
                     startService(shake);
                 }
                 current = x + y + z;

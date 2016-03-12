@@ -70,8 +70,6 @@ public class WatchToPhoneService extends Service {
                 } else {
                     sendMessage("/CASE", "SHAKE");
                     SystemClock.sleep(500);
-                    sendMessage("ZIPCODE", extras.getString("ZIPCODE"));
-                    SystemClock.sleep(500);
                     sendMessage("/START", "START");
                 }
             }

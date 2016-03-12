@@ -1,15 +1,21 @@
 package com.example.sturmgewehr44.democrazy;
 
 import android.content.Intent;
+import android.util.JsonReader;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.google.android.gms.wearable.MessageEvent;
 import com.google.android.gms.wearable.WearableListenerService;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import java.nio.charset.StandardCharsets;
+import java.util.Random;
 
 public class PhoneListenerService extends WearableListenerService {
 
@@ -17,65 +23,22 @@ public class PhoneListenerService extends WearableListenerService {
     private static final String CASE = "/CASE";
     private static boolean shake;
     private HashMap<String, String> builds = new HashMap<String, String>();
+    private String zip = "95758";
 
     @Override
     public void onMessageReceived(MessageEvent messageEvent) {
-
-//        bio_id = extras.getString("VALUE");
-//        handle = extras.getString("HANDLE");
-//        party = extras.getString("PARTY");
-//        ((TextView) findViewById(R.id.term)).setText("Term ends: " + extras.getString("END").substring(0, 4));
-//        ((TextView) findViewById(R.id.role)).setText(extras.getString("ROLE"));
-//        ((TextView) findViewById(R.id.title)).setText(extras.getString("NAME"));
-//
 
         Log.d("T", "in PhoneListenerService, got: " + messageEvent.getPath());
         if(messageEvent.getPath().equalsIgnoreCase( START )) {
             Intent intent;
             if (shake) {
-                System.out.println("shake");
-                Intent sendIntent = new Intent(getBaseContext(), PhoneToWatchService.class);
-                sendIntent.putExtra("TYPE", "ZIP");
-                String zipcode = builds.get("ZIPCODE");
-                ArrayList<String> info = findData(zipcode);
-                sendIntent.putExtra("ZIPCODE", zipcode);
-                int cases = Integer.parseInt(info.get(1));
-                sendIntent.putExtra("cases", info.get(1));
-                sendIntent.putExtra("state", info.get(2));
-                sendIntent.putExtra("sen1", info.get(3));
-                sendIntent.putExtra("par1", info.get(4));
-                sendIntent.putExtra("ema1", info.get(5));
-                sendIntent.putExtra("web1", info.get(6));
-                sendIntent.putExtra("twe1", info.get(7));
-                sendIntent.putExtra("twi1", info.get(8));
-
-                sendIntent.putExtra("sen2", info.get(9));
-                sendIntent.putExtra("par2", info.get(10));
-                sendIntent.putExtra("ema2", info.get(11));
-                sendIntent.putExtra("web2", info.get(12));
-                sendIntent.putExtra("twe2", info.get(13));
-                sendIntent.putExtra("twi2", info.get(14));
-
-                for (int i = 0; i < cases; i++) {
-                    sendIntent.putExtra("sen" + Integer.toString(i + 3), info.get((i + 2) * 6 + 3));
-                    sendIntent.putExtra("par" + Integer.toString(i + 3), info.get((i + 2) * 6 + 4));
-                    sendIntent.putExtra("ema" + Integer.toString(i + 3), info.get((i + 2) * 6 + 5));
-                    sendIntent.putExtra("web" + Integer.toString(i + 3), info.get((i + 2) * 6 + 6));
-                    sendIntent.putExtra("twe" + Integer.toString(i + 3), info.get((i + 2) * 6 + 7));
-                    sendIntent.putExtra("twi" + Integer.toString(i + 3), info.get((i + 2) * 6 + 8));
-                }
-                startService(sendIntent);
-                Intent toCongressionalViewIntent = new Intent(getBaseContext(), CongressionalViewMobile.class);
-                toCongressionalViewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                toCongressionalViewIntent.putExtras(sendIntent.getExtras());
-                startActivity(toCongressionalViewIntent);
+                looper();
             } else {
                 intent = new Intent(this, DetailedViewMobile.class);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 for (String key: builds.keySet()) {
                     intent.putExtra(key, builds.get(key));
                 }
-//                intent.putExtra("cases", Integer.toString(builds.size() / 2 - 2));
                 startActivity(intent);
             }
 
@@ -94,61 +57,60 @@ public class PhoneListenerService extends WearableListenerService {
 
     }
 
-    public ArrayList<String> findData (String zip) {
-        ArrayList<String> info = new ArrayList<String>();
-        info.add(zip);
-        info.add("3");
-        info.add("California");
+    public void looper() {
+        Random rand = new Random();
+        int value = rand.nextInt(99999);
+        zip = Integer.toString(value);
+        pullData(zip);
+    }
 
-        if (Integer.parseInt(zip) % 2 == 0) {
-            info.add("Franklin D. Roosevelt");
-            info.add("Democratic Party");
-            info.add("roosevelt@senate.gov");
-            info.add("newDeal.com");
-            info.add("@NewDEALZ");
-            info.add("@neversurrender tanks 4 cash brah?");
-
-            info.add("Joseph Stalin");
-            info.add("Communist Party");
-            info.add("gulag@senate.gov");
-            info.add("cccp.com");
-            info.add("@not1stepback");
-            info.add("@Poland sorry");
-        } else {
-            info.add("Joseph Stalin");
-            info.add("Communist Party");
-            info.add("gulag@senate.gov");
-            info.add("cccp.com");
-            info.add("@not1stepback");
-            info.add("@Poland sorry");
-
-            info.add("Franklin D. Roosevelt");
-            info.add("Democratic Party");
-            info.add("roosevelt@senate.gov");
-            info.add("newDeal.com");
-            info.add("@NewDEALZ");
-            info.add("@neversurrender tanks 4 cash brah?");
+    public void pullData(String zipcode) {
+        try {
+            InputStream in = new GetDataAsynch().execute("https://congress.api.sunlightfoundation.com/legislators/locate?zip="+ zipcode +"&apikey=a96714973c0748038c1b2e35ebdc690a").get();
+            readJsonStream(in);
+            return;
+        } catch(java.net.MalformedURLException error) {
+            System.out.println("a");
+        } catch(java.io.IOException error) {
+            System.out.println("b");
+        } catch(java.lang.InterruptedException error) {
+            System.out.println("c");
+        } catch(java.util.concurrent.ExecutionException error) {
+            System.out.println("d");
         }
-        info.add("Wendell Willkie");
-        info.add("Republican Party");
-        info.add("wellWill@senate.gov");
-        info.add("WillkieForPresident.com");
-        info.add("@ewNewDeal");
-        info.add("Yeah let's just let them borrow tanks, I'm sure they'll be functional afterwards");
+    }
 
-        info.add("Adolf Hitler");
-        info.add("National Socialist Party");
-        info.add("nazi@senate.gov");
-        info.add("reich.com");
-        info.add("@backstabber");
-        info.add("@Poland sorry");
+    public void readJsonStream(InputStream in) throws IOException {
+        JsonReader reader = new JsonReader(new InputStreamReader(in, "UTF-8"));
+        try {
+            readMessagesArray(reader);
+        } finally {
+            reader.close();
+        }
+    }
 
-        info.add("Winston Churchill");
-        info.add("Conservative Party");
-        info.add("pm@senate.gov");
-        info.add("ruleBritannia.com");
-        info.add("@neverSurrender");
-        info.add("@backstabber no Germany wat r u doing sthap. @poland sorry");
-        return info;
+    public void readMessagesArray(JsonReader reader) throws IOException {
+        reader.beginObject();
+        while (reader.hasNext()) {
+            String name = reader.nextName();
+            System.out.println(name);
+            if (name.equals("results")) {
+                reader.skipValue();
+            } else if (name.equals("count")) {
+                int cases = reader.nextInt();
+                if (cases == 0) {
+                    looper();
+                } else {
+                    Intent toCongressionalViewIntent = new Intent(getBaseContext(), CongressionalViewMobile.class);
+                    toCongressionalViewIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    toCongressionalViewIntent.putExtra("TYPE", "ZIP");
+                    toCongressionalViewIntent.putExtra("ZIPCODE", zip);
+                    startActivity(toCongressionalViewIntent);
+                }
+            } else {
+                reader.skipValue();
+            }
+        }
+        reader.endObject();
     }
 }
