@@ -8,13 +8,13 @@ Anthony Lai ([a.lai@berkeley.edu](mailto:a.lai@berkeley.edu))
 
 ## Demo Video
 
-See [PROJ 02] (https://www.youtube.com/watch?v=apmEwE245gw)
+Watch the [keynote]! (https://www.youtube.com/watch?v=apmEwE245gw)
 
 ## Screenshots
 
 <img src="screenshots/main.png" height="400" alt="Screenshot"/>
 <img src="screenshots/congressional.png" height="400" alt="Screenshot"/>
-<img src="screenshots/detailes.png" height="400" alt="Screenshot"/>
+<img src="screenshots/details.png" height="400" alt="Screenshot"/>
 <img src="screenshots/watchmain.png" height="200" alt="Screenshot"/>
 <img src="screenshots/watchsenator.png" height="200" alt="Screenshot"/>
 <img src="screenshots/watchvote.png" height="200" alt="Screenshot"/>
