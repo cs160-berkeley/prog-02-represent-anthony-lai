@@ -8,13 +8,19 @@ Anthony Lai ([a.lai@berkeley.edu](mailto:a.lai@berkeley.edu))
 
 ## Demo Video
 
-See [your demo video title here] (https://www.youtube.com/watch?v=7OBaevSF1G0&feature=autoshare)
+See [PROJ 02] (https://www.youtube.com/watch?v=apmEwE245gw)
 
 ## Screenshots
 
 <img src="screenshots/main.png" height="400" alt="Screenshot"/>
+<img src="screenshots/congressional.png" height="400" alt="Screenshot"/>
+<img src="screenshots/detailes.png" height="400" alt="Screenshot"/>
+<img src="screenshots/watchmain.png" height="400" alt="Screenshot"/>
+<img src="screenshots/watchsenator.png" height="400" alt="Screenshot"/>
+<img src="screenshots/watchvote.png" height="400" alt="Screenshot"/>
 
 ## Acknowledgments
 
  * Shoutout to android docs for providing like 50% of the code that actually makes things runs behind the scenes.
  * Also shoutout to catnip for the phone / watch communication
+ * Most of the ugly code was copy/pasted from forums about the APIs or google docs.
