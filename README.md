@@ -15,9 +15,9 @@ See [PROJ 02] (https://www.youtube.com/watch?v=apmEwE245gw)
 <img src="screenshots/main.png" height="400" alt="Screenshot"/>
 <img src="screenshots/congressional.png" height="400" alt="Screenshot"/>
 <img src="screenshots/detailes.png" height="400" alt="Screenshot"/>
-<img src="screenshots/watchmain.png" height="400" alt="Screenshot"/>
-<img src="screenshots/watchsenator.png" height="400" alt="Screenshot"/>
-<img src="screenshots/watchvote.png" height="400" alt="Screenshot"/>
+<img src="screenshots/watchmain.png" height="200" alt="Screenshot"/>
+<img src="screenshots/watchsenator.png" height="200" alt="Screenshot"/>
+<img src="screenshots/watchvote.png" height="200" alt="Screenshot"/>
 
 ## Acknowledgments
 
